@@ -159,5 +159,20 @@ def main():
 
 	print(connect_matr)
 
+
+	with open('shared_pins.txt','r') as template_file:
+		template = template_file.read()
+		result = template.format(
+			module_name=module_name,
+			internal_signals='',
+			peripherial_signals='',
+			psignal_total=len(psig_list),
+			clog2_isignal_total='X',
+			mux_control=mux_control,
+			connect_default=connect_default,
+			connect_matr=connect_matr)
+		with open(out_file,'w') as out:
+			out.write(result)
+
 if __name__ == '__main__':
 	main()
