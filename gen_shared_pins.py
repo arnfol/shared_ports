@@ -44,8 +44,8 @@ connect_default_templ = '''\
 
 # psig
 connect_matr_templ = '''\
-		matr_o[{psig_num}] = \{{psig_o_connections}\};
-		matr_oe[{psig_num}] = \{{psig_oe_connections}\};
+		matr_o[{num}] = {{{o_connections}}};
+		matr_oe[{num}] = {{{oe_connections}}};
 {matr_ie}
 '''
 
@@ -53,14 +53,6 @@ connect_matr_templ = '''\
 matr_ie_templ = '''\
 		if(matr_ie[{psig_num}][{isig_num}]) {isig_i} = {psig_i};
 '''
-
-# ---------------------------------------------------------------------------------
-# functions
-# ---------------------------------------------------------------------------------
-# inserting suffixs and prefixs ('_o', '_i', etc.) in names with [] braces
-def insert_suf(name, suffix, prefix=''):
-	return re.sub(r'(\w+)(.*)',prefix+r'\1'+suffix+r'\2',name)
-
 
 # ---------------------------------------------------------------------------------
 # read csv table
@@ -154,9 +146,13 @@ def main():
 		matr_ie =""
 		for i in p['connections']:
 			if i is not None:
-				matr_ie += matr_ie_templ.format(isig_i=i['i'],isig_num="***",psig_i=p['i'],psig_num=p['num'])
+				matr_ie += matr_ie_templ.format(isig_i=i['i'],isig_num=p['connections'].index(i),psig_i=p['i'],psig_num=p['num'])
 
-		print(matr_ie)
+		p['oe_connections'] = ', '.join([x['oe'] for x in p['connections'] if x is not None])
+		p['o_connections'] = ', '.join([x['o'] for x in p['connections'] if x is not None])
+		connect_matr += connect_matr_templ.format(matr_ie=matr_ie,**p)
+
+	print(connect_matr)
 
 if __name__ == '__main__':
 	main()
