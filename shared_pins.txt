@@ -1,17 +1,9 @@
-module shared_pins (
+module {module_name} (
 	// internal signals
-	// for isignal in internal_signals_portlist:
-	output {isignal_boundaries} {isignal_o_name},
-	output {isignal_boundaries} {isignal_oe_name},
-	input  {isignal_boundaries} {isignal_i_name},
-	// end
+{internal_signals}
 
 	// peripherial signals
-	// for psignal in peripherial_signals_portlist:
-	output {psignal_boundaries} {psignal_o_name},
-	output {psignal_boundaries} {psignal_oe_name},
-	input  {psignal_boundaries} {psignal_i_name},
-	// end
+{peripherial_signals}
 
 	input [{psignal_total}-1:0][{clog2_isignal_total}-1:0] port_mode
 );
@@ -24,31 +16,16 @@ module shared_pins (
 	--  MUX CONTROL
 	------------------------------------------------------------------------------*/
 
-	// for psignal in peripherial_signals:
-	assign {psignal_o_name} = matr_o[{psignal_num}][port_mode[{psignal_num}]]; 
-	assign {psignal_oe_name} = matr_oe[{psignal_num}][port_mode[{psignal_num}]]; 
-	always_comb begin 
-		matr_ie[{psignal_num}][port_mode[{psignal_num}]] = '0;
-		matr_ie[{psignal_num}][port_mode[{psignal_num}]] = 1;
-	end
-	// end
+{mux_control}
 
 	/*------------------------------------------------------------------------------
 	--  MUX CONNECTIONS
 	------------------------------------------------------------------------------*/
 
 	always_comb begin
-		// for signal in internal_signals:
-		{isignal_i_name} = {isignal_default_value};
-		// end
+{connect_default}
 
-		// for psignal in peripherial_signals:
-		matr_o[{psignal_num}] = \{{psignal_connection_o_list}\};
-		matr_oe[{psignal_num}] = \{{psignal_connection_oe_list}\};
-			// for isignal in psignal_connection:
-			if(matr_ie[{psignal_num}][{isignal_num}]) {isignal_i_name} ={psignal_i_name};
-			// end
-		// end
+{connect_matr}
 	end 
 
 endmodule
