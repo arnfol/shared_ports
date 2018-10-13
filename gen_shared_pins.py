@@ -133,12 +133,17 @@ def read_table(file, headlines=0):
 def main():
 	psig_list, isig_list = read_table(inp_file)
 
+	mux_control = ""
+	for signal in psig_list:
+		mux_control += mux_control_templ.format(**signal)
+
+	# print(mux_control)
+
 	connect_default = ""
 	for signal in isig_list:
 		connect_default += connect_default_templ.format(**signal)
 
-	print(connect_default)
-
+	# print(connect_default)
 
 	connect_matr = ""
 	for p in psig_list:
