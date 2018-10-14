@@ -15,10 +15,16 @@ func_columns = [1, 3, 5, 7]
 func_dir_columns = [2, 4, 6, 8]
 
 # isig
-internal_port_templ = '''\
+internal_bus_templ = '''\
 	input        [{msb}:{lsb}] {name}_o,
 	input        [{msb}:{lsb}] {name}_oe,
 	output logic [{msb}:{lsb}] {name}_i,
+'''
+
+internal_port_templ = '''\
+	input        {name}_o,
+	input        {name}_oe,
+	output logic {name}_i,
 '''
 
 # psig
@@ -117,9 +123,8 @@ def read_table(file, headlines=0):
 							isig['oe'] = "1'b1"
 
 					# check if it is already in a list
-					for i in isig_list:
-						if i['name'] != isig['name'] or i['bit'] != isig['bit']:
-							isig_list.append(isig)
+					if not isig in isig_list:
+						isig_list.append(isig)
 
 					psig['connections'].append(isig)
 				else:
@@ -146,7 +151,8 @@ def main():
 
 	connect_default = ""
 	for signal in isig_list:
-		connect_default += connect_default_templ.format(**signal)
+		if signal['i'] is not None:
+			connect_default += connect_default_templ.format(**signal)
 
 	connect_matr = ""
 	# to do: make it one-line
@@ -162,36 +168,36 @@ def main():
 			if i is not None and i['i'] is not None:
 				matr_ie += matr_ie_templ.format(isig_i=i['i'],isig_num=p['connections'].index(i),psig_i=p['i'],psig_num=p['num'])
 
-		print(' '.join([i['oe'] for i in p['connections'] if i is not None]))
 		p['oe_connections'] = ', '.join([conn(x,'oe') for x in p['connections']])
 		p['o_connections'] = ', '.join([conn(x,'o') for x in p['connections']])
 		connect_matr += connect_matr_templ.format(matr_ie=matr_ie,**p)
-
-	# print(connect_matr)
 
 	def ranges(i):
 	    for a, b in itertools.groupby(enumerate(i), lambda x: x[0]-x[1]):
 	        b = list(b)
 	        yield b[0][1], b[-1][1]
 
+	def create_bus(signals):
+		bus = {}
+		# make dict with all bits in a buses
+		for sig in signals:
+			if sig['bit'] == None:
+				bus[sig['name']] = None
+			elif sig['name'] in bus:
+				bus[sig['name']].append(int(sig['bit']))
+			else:
+				bus[sig['name']] = [int(sig['bit'])]
+
+		# compress bits numbers into bits ranges
+		for sig in bus:
+			if bus[sig] != None:
+				bus[sig] = list(ranges(bus[sig]))
+
+		return bus
 
 	peripherial_signals = ""
-	psig_buses = {}
-
-	# make dict with all bits in a buses
-	for p in psig_list:
-		if p['bit'] == None:
-			psig_buses[p['name']] = None
-		elif p['name'] in psig_buses:
-			psig_buses[p['name']].append(int(p['bit']))
-		else:
-			psig_buses[p['name']] = [int(p['bit'])]
-
-	# compress bits numbers into bits ranges
-	for b in psig_buses:
-		if psig_buses[b] != None:
-			psig_buses[b] = list(ranges(psig_buses[b]))
-
+	psig_buses = create_bus(psig_list)
+	
 	for bus in psig_buses:
 		if psig_buses[bus] is None:
 			peripherial_signals += peripherial_port_templ.format(name=bus)
@@ -199,15 +205,18 @@ def main():
 			for subrange in psig_buses[bus]:
 				peripherial_signals += peripherial_bus_templ.format(name=bus,msb=subrange[1],lsb=subrange[0])
 
-	print(peripherial_signals)
-	# peripherial_port_templ = '''\
-	# 	output [{msb}:{lsb}] {name}_o,
-	# 	output [{msb}:{lsb}] {name}_oe,
-	# 	input  [{msb}:{lsb}] {name}_i,
-	# '''
-
+	# print(peripherial_signals)
 
 	internal_signals = ""
+	isig_buses = create_bus(isig_list)
+	for bus in isig_buses:
+		if isig_buses[bus] is None:
+			internal_signals += internal_port_templ.format(name=bus)
+		else:
+			for subrange in isig_buses[bus]:
+				internal_signals += internal_bus_templ.format(name=bus,msb=subrange[1],lsb=subrange[0])
+
+	print(internal_signals)
 
 	# ------------------------------------------------------------------------------------
 	# generate output file 
