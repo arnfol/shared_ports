@@ -101,17 +101,18 @@ def read_table(file, headlines=0):
 					'default': 0,
 					}
 
-					isig['i'] = isig['name'] + '_i'
-					isig['o'] = isig['name'] + '_o'
-					isig['oe'] = isig['name'] + '_oe'
-					if isig['bit'] != None:
-						isig['i'] += '[' + isig['bit'] + ']'
-						isig['o'] += '[' + isig['bit'] + ']'
-						isig['oe'] += '[' + isig['bit'] + ']'
+					isig['i'] = '{name}_i[{bit}]'.format(**isig) if isig['bit'] != None else isig['name']+'_i'
+					isig['o'] = '{name}_o[{bit}]'.format(**isig) if isig['bit'] != None else isig['name']+'_o'
+					isig['oe'] = '{name}_oe[{bit}]'.format(**isig) if isig['bit'] != None else isig['name']+'_oe'
 
 					# rewrite oe with constant if pin is not bidirectional
-					if isig['direction'] != 'oe':
-						isig['oe'] = "1'b1" if isig['direction'] == 'o' else "1'b0"
+					if isig['direction'] != 'io' and isig['direction'] != 'oi':
+						if isig['direction'] == 'i' : 
+							isig['o'] = "1'b0"
+							isig['oe'] = "1'b0"
+						else:
+							isig['i'] = None
+							isig['oe'] = "1'b1"
 
 					# check if it is already in a list
 					for i in isig_list:
@@ -154,15 +155,15 @@ def main():
 			return "1'b0"
 		else:
 			return item[field]
-			
+
 	for p in psig_list:
 
 		matr_ie =""
 		for i in p['connections']:
-			if i is not None:
+			if i is not None and i['i'] is not None:
 				matr_ie += matr_ie_templ.format(isig_i=i['i'],isig_num=p['connections'].index(i),psig_i=p['i'],psig_num=p['num'])
 
-
+		print(' '.join([i['oe'] for i in p['connections'] if i is not None]))
 		p['oe_connections'] = ', '.join([conn(x,'oe') for x in p['connections']])
 		p['o_connections'] = ', '.join([conn(x,'o') for x in p['connections']])
 		connect_matr += connect_matr_templ.format(matr_ie=matr_ie,**p)
