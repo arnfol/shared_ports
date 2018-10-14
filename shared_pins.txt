@@ -5,12 +5,12 @@ module {module_name} (
 	// peripherial signals
 {peripherial_signals}
 
-	input [{psignal_total}-1:0][{clog2_isignal_total}-1:0] port_mode
+	input [{psignal_max}:0][{isignal_clog2_max}:0] port_mode
 );
 
-	logic [{psignal_total}-1:0][{clog2_isignal_total}-1:0] matr_o ;
-	logic [{psignal_total}-1:0][{clog2_isignal_total}-1:0] matr_oe;
-	logic [{psignal_total}-1:0][{clog2_isignal_total}-1:0] matr_ie;
+	logic [{psignal_max}:0][{isignal_clog2_max}:0] matr_o ;
+	logic [{psignal_max}:0][{isignal_clog2_max}:0] matr_oe;
+	logic [{psignal_max}:0][{isignal_clog2_max}:0] matr_ie;
 
 	/*------------------------------------------------------------------------------
 	--  MUX CONTROL

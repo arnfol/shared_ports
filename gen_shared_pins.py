@@ -1,6 +1,6 @@
 import csv
 import re
-
+import itertools
 
 module_name = 'shared_pins'
 inp_file = 'pins_mux_table.csv'
@@ -16,16 +16,22 @@ func_dir_columns = [2, 4, 6, 8]
 
 # isig
 internal_port_templ = '''\
-	input  [{msb}:{lsb}] {name}_o,
-	input  [{msb}:{lsb}] {name}_oe,
-	output [{msb}:{lsb}] {name}_i,
+	input        [{msb}:{lsb}] {name}_o,
+	input        [{msb}:{lsb}] {name}_oe,
+	output logic [{msb}:{lsb}] {name}_i,
 '''
 
 # psig
+peripherial_bus_templ = '''\
+	output logic [{msb}:{lsb}] {name}_o,
+	output logic [{msb}:{lsb}] {name}_oe,
+	input        [{msb}:{lsb}] {name}_i,
+'''
+
 peripherial_port_templ = '''\
-	output [{msb}:{lsb}] {name}_o,
-	output [{msb}:{lsb}] {name}_oe,
-	input  [{msb}:{lsb}] {name}_i,
+	output logic {name}_o,
+	output logic {name}_oe,
+	input        {name}_i,
 '''
 
 mux_control_templ = '''
@@ -71,24 +77,20 @@ def read_table(file, headlines=0):
 
 		# handle each row in table
 		for row in table:
-			psig = {}
 			# parse external port names
 			signal = re.findall(r'(\w+)', row[name_col])  # find name and if exist -- bit number
 
-			psig['name'] = signal[0]
-			psig['bit'] = None if len(signal) == 1 else signal[1]
-			psig['connections'] = []
-			psig['num'] = psig_num
+			psig = {
+			'name' : signal[0],
+			'bit' : None if len(signal) == 1 else signal[1],
+			'connections' : [],
+			'num' : psig_num
+			}
 			psig_num += 1
 
-			psig['i'] = psig['name'] + '_i'
-			psig['o'] = psig['name'] + '_o'
-			psig['oe'] = psig['name'] + '_oe'
-			if psig['bit'] != None:
-				psig['i'] += '[' + psig['bit'] + ']'
-				psig['o'] += '[' + psig['bit'] + ']'
-				psig['oe'] += '[' + psig['bit'] + ']'
-
+			psig['i'] = '{name}_i[{bit}]'.format(**psig) if psig['bit'] != None else psig['name']+'_i'
+			psig['o'] = '{name}_o[{bit}]'.format(**psig) if psig['bit'] != None else psig['name']+'_o'
+			psig['oe'] = '{name}_oe[{bit}]'.format(**psig) if psig['bit'] != None else psig['name']+'_oe'
 
 			for i in range(len(func_columns)):
 				isig_fullname = re.findall(r'(\w+)', row[func_columns[i]])
@@ -116,10 +118,8 @@ def read_table(file, headlines=0):
 
 					# check if it is already in a list
 					for i in isig_list:
-						if i['name'] == isig['name'] and i['bit'] == isig['bit']:
-							break
-					else:
-						isig_list.append(isig)
+						if i['name'] != isig['name'] or i['bit'] != isig['bit']:
+							isig_list.append(isig)
 
 					psig['connections'].append(isig)
 				else:
@@ -157,7 +157,6 @@ def main():
 			return item[field]
 
 	for p in psig_list:
-
 		matr_ie =""
 		for i in p['connections']:
 			if i is not None and i['i'] is not None:
@@ -168,7 +167,47 @@ def main():
 		p['o_connections'] = ', '.join([conn(x,'o') for x in p['connections']])
 		connect_matr += connect_matr_templ.format(matr_ie=matr_ie,**p)
 
-	print(connect_matr)
+	# print(connect_matr)
+
+	def ranges(i):
+	    for a, b in itertools.groupby(enumerate(i), lambda x: x[0]-x[1]):
+	        b = list(b)
+	        yield b[0][1], b[-1][1]
+
+
+	peripherial_signals = ""
+	psig_buses = {}
+
+	# make dict with all bits in a buses
+	for p in psig_list:
+		if p['bit'] == None:
+			psig_buses[p['name']] = None
+		elif p['name'] in psig_buses:
+			psig_buses[p['name']].append(int(p['bit']))
+		else:
+			psig_buses[p['name']] = [int(p['bit'])]
+
+	# compress bits numbers into bits ranges
+	for b in psig_buses:
+		if psig_buses[b] != None:
+			psig_buses[b] = list(ranges(psig_buses[b]))
+
+	for bus in psig_buses:
+		if psig_buses[bus] is None:
+			peripherial_signals += peripherial_port_templ.format(name=bus)
+		else:
+			for subrange in psig_buses[bus]:
+				peripherial_signals += peripherial_bus_templ.format(name=bus,msb=subrange[1],lsb=subrange[0])
+
+	print(peripherial_signals)
+	# peripherial_port_templ = '''\
+	# 	output [{msb}:{lsb}] {name}_o,
+	# 	output [{msb}:{lsb}] {name}_oe,
+	# 	input  [{msb}:{lsb}] {name}_i,
+	# '''
+
+
+	internal_signals = ""
 
 	# ------------------------------------------------------------------------------------
 	# generate output file 
@@ -176,10 +215,10 @@ def main():
 	with open('shared_pins.txt','r') as template:
 		result = template.read().format(
 			module_name=module_name,
-			internal_signals='', # !!!
-			peripherial_signals='', # !!!
-			psignal_total=len(psig_list),
-			clog2_isignal_total='X', # !!!
+			internal_signals=internal_signals,
+			peripherial_signals=peripherial_signals, 
+			psignal_max=len(psig_list)-1,
+			isignal_clog2_max=(len(func_columns)-1).bit_length()-1, 
 			mux_control=mux_control,
 			connect_default=connect_default,
 			connect_matr=connect_matr)
