@@ -131,21 +131,30 @@ def read_table(file, headlines=0):
 
 
 def main():
+	# ------------------------------------------------------------------------------------
+	# read configuration table
+	# ------------------------------------------------------------------------------------
 	psig_list, isig_list = read_table(inp_file)
 
+	# ------------------------------------------------------------------------------------
+	# generate parts of output file
+	# ------------------------------------------------------------------------------------
 	mux_control = ""
 	for signal in psig_list:
 		mux_control += mux_control_templ.format(**signal)
-
-	# print(mux_control)
 
 	connect_default = ""
 	for signal in isig_list:
 		connect_default += connect_default_templ.format(**signal)
 
-	# print(connect_default)
-
 	connect_matr = ""
+	# to do: make it one-line
+	def conn(item, field):
+		if item is None:
+			return "1'b0"
+		else:
+			return item[field]
+			
 	for p in psig_list:
 
 		matr_ie =""
@@ -153,19 +162,16 @@ def main():
 			if i is not None:
 				matr_ie += matr_ie_templ.format(isig_i=i['i'],isig_num=p['connections'].index(i),psig_i=p['i'],psig_num=p['num'])
 
-		# to do: make it one-line
-		def conn(item, field):
-			if item is None:
-				return "1'b0"
-			else:
-				return item[field]
+
 		p['oe_connections'] = ', '.join([conn(x,'oe') for x in p['connections']])
 		p['o_connections'] = ', '.join([conn(x,'o') for x in p['connections']])
 		connect_matr += connect_matr_templ.format(matr_ie=matr_ie,**p)
 
 	print(connect_matr)
 
-
+	# ------------------------------------------------------------------------------------
+	# generate output file 
+	# ------------------------------------------------------------------------------------
 	with open('shared_pins.txt','r') as template:
 		result = template.read().format(
 			module_name=module_name,
