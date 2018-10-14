@@ -153,21 +153,26 @@ def main():
 			if i is not None:
 				matr_ie += matr_ie_templ.format(isig_i=i['i'],isig_num=p['connections'].index(i),psig_i=p['i'],psig_num=p['num'])
 
-		p['oe_connections'] = ', '.join([x['oe'] for x in p['connections'] if x is not None])
-		p['o_connections'] = ', '.join([x['o'] for x in p['connections'] if x is not None])
+		# to do: make it one-line
+		def conn(item, field):
+			if item is None:
+				return "1'b0"
+			else:
+				return item[field]
+		p['oe_connections'] = ', '.join([conn(x,'oe') for x in p['connections']])
+		p['o_connections'] = ', '.join([conn(x,'o') for x in p['connections']])
 		connect_matr += connect_matr_templ.format(matr_ie=matr_ie,**p)
 
 	print(connect_matr)
 
 
-	with open('shared_pins.txt','r') as template_file:
-		template = template_file.read()
-		result = template.format(
+	with open('shared_pins.txt','r') as template:
+		result = template.read().format(
 			module_name=module_name,
-			internal_signals='',
-			peripherial_signals='',
+			internal_signals='', # !!!
+			peripherial_signals='', # !!!
 			psignal_total=len(psig_list),
-			clog2_isignal_total='X',
+			clog2_isignal_total='X', # !!!
 			mux_control=mux_control,
 			connect_default=connect_default,
 			connect_matr=connect_matr)
