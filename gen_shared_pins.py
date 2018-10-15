@@ -27,17 +27,16 @@ internal_port_templ = '''\
 	output logic {name}_i,
 '''
 
-# psig
-peripherial_bus_templ = '''\
-	output logic [{msb}:{lsb}] {name}_o,
-	output logic [{msb}:{lsb}] {name}_oe,
-	input        [{msb}:{lsb}] {name}_i,
-'''
+internal_o_templ  = '	input        {bus}{name}_o,\n'
+internal_oe_templ = '	input        {bus}{name}_oe,\n'
+internal_i_templ  = '	output logic {bus}{name}_i,\n'
+bus_templ = '[{}:{}] '
 
+# psig
 peripherial_port_templ = '''\
-	output logic {name}_o,
-	output logic {name}_oe,
-	input        {name}_i,
+	output logic {bus}{name}_o,
+	output logic {bus}{name}_oe,
+	input        {bus}{name}_i,
 '''
 
 mux_control_templ = '''
@@ -200,23 +199,42 @@ def main():
 	
 	for bus in psig_buses:
 		if psig_buses[bus] is None:
-			peripherial_signals += peripherial_port_templ.format(name=bus)
+			peripherial_signals += peripherial_port_templ.format(name=bus,bus="")
 		else:
 			for subrange in psig_buses[bus]:
-				peripherial_signals += peripherial_bus_templ.format(name=bus,msb=subrange[1],lsb=subrange[0])
+				peripherial_signals += peripherial_port_templ.format(name=bus,bus=bus_templ.format(subrange[1],subrange[0]))
 
 	# print(peripherial_signals)
 
 	internal_signals = ""
 	isig_buses = create_bus(isig_list)
 	for bus in isig_buses:
+		o_gen = False
+		i_gen = False
+		for i in isig_list:
+			if bus is i['name']:
+				if i['direction'] in ['io','oi','o']:
+					o_gen = True
+				if i['direction'] in ['io','oi','i']:
+					i_gen = True
+
 		if isig_buses[bus] is None:
-			internal_signals += internal_port_templ.format(name=bus)
+			if o_gen:
+				internal_signals += internal_o_templ.format(name=bus, bus="")
+			if o_gen and i_gen:
+				internal_signals += internal_oe_templ.format(name=bus, bus="")
+			if i_gen:
+				internal_signals += internal_i_templ.format(name=bus, bus="")
 		else:
 			for subrange in isig_buses[bus]:
-				internal_signals += internal_bus_templ.format(name=bus,msb=subrange[1],lsb=subrange[0])
+				if o_gen:
+					internal_signals += internal_o_templ.format(name=bus,bus=bus_templ.format(subrange[1],subrange[0]))
+				if o_gen and i_gen:
+					internal_signals += internal_oe_templ.format(name=bus,bus=bus_templ.format(subrange[1],subrange[0]))
+				if i_gen:
+					internal_signals += internal_i_templ.format(name=bus,bus=bus_templ.format(subrange[1],subrange[0]))
 
-	print(internal_signals)
+	# print(internal_signals)
 
 	# ------------------------------------------------------------------------------------
 	# generate output file 
