@@ -3,16 +3,16 @@ import re
 import itertools
 
 module_name = 'shared_pins'
-inp_file = 'pins_mux_table.csv'
+inp_file = 'example_table.csv'
 out_file = module_name + '.sv'
 
 # Number of header lines
-head_lines = 0
+headlines = 7
 
 # Column numbers
 name_col = 0
-func_columns = [1, 3, 5, 7]
-func_dir_columns = [2, 4, 6, 8]
+func_columns = [2, 4, 6, 8]
+func_dir_columns = [3, 5, 7, 9]
 
 # isig
 internal_bus_templ = '''\
@@ -139,7 +139,7 @@ def main():
 	# ------------------------------------------------------------------------------------
 	# read configuration table
 	# ------------------------------------------------------------------------------------
-	psig_list, isig_list = read_table(inp_file)
+	psig_list, isig_list = read_table(inp_file,headlines)
 
 	# ------------------------------------------------------------------------------------
 	# generate parts of output file
