@@ -2,8 +2,8 @@ module {module_name} (
 	// internal signals
 {internal_signals}
 
-	// peripherial signals
-{peripherial_signals}
+	// peripheral signals
+{peripheral_signals}
 
 	input [{psignal_max}:0][{isignal_clog2_max}:0] port_mode
 );
@@ -26,6 +26,6 @@ module {module_name} (
 {connect_default}
 
 {connect_matr}
-	end 
+	end
 
 endmodule

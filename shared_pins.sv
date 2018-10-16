@@ -52,7 +52,7 @@ module shared_pins (
 	input        uart2_tx_o,
 
 
-	// peripherial signals
+	// peripheral signals
 	output logic [7:0] cmn_port_o,
 	output logic [7:0] cmn_port_oe,
 	input        [7:0] cmn_port_i,
