@@ -362,9 +362,13 @@ module shared_pins (
 		gpio_i[22] = 0;
 		gpio_i[23] = 0;
 		gpio_i[24] = 0;
+		gpio_i[4] = 0;
 		gpio_i[25] = 0;
+		gpio_i[5] = 0;
 		gpio_i[26] = 0;
+		gpio_i[6] = 0;
 		gpio_i[27] = 0;
+		gpio_i[7] = 0;
 		gpio_i[28] = 0;
 		gpio_i[29] = 0;
 		gpio_i[30] = 0;
@@ -381,10 +385,10 @@ module shared_pins (
 		gpio_i[41] = 0;
 		gpio_i[42] = 0;
 		gpio_i[43] = 0;
-		i2c1_scl_i = 0;
-		i2c1_sda_i = 0;
-		i2c2_scl_i = 0;
-		i2c2_sda_i = 0;
+		i2c1_scl_i = 1;
+		i2c1_sda_i = 1;
+		i2c2_scl_i = 1;
+		i2c2_sda_i = 1;
 		jtagmst_tdi_i = 0;
 		spi1_miso_i = 0;
 		spi1_mosi_i = 0;
@@ -612,6 +616,6 @@ module shared_pins (
 		if(matr_ie[35][1]) i2c2_sda_i = sp_pin1_i;
 
 
-	end 
+	end
 
 endmodule

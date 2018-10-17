@@ -5,18 +5,18 @@ Number of function columns can be configurated in the script.;;;;;;;;;
 ;;;;;;;;;
 ;;;;;;;;;
 External port;Address;Function 0;;Function 1;;Function 2;;Function 3;
-    cmn_port[0];;  gpio[4]; io;       can1_tx;  o;  i2c1_scl; io;             uart1_rx;  i
-    cmn_port[1];;  gpio[5]; io;       can1_rx;  i;  i2c1_sda; io;             uart1_tx;  o
-    cmn_port[2];;  gpio[6]; io;       can1_tx;  o;  i2c2_scl; io;             uart2_rx;  i
-    cmn_port[3];;  gpio[7]; io;       can1_rx;  i;  i2c2_sda; io;             uart2_tx;  o
-    cmn_port[4];;  gpio[8]; io;       can2_tx;  o;  i2c2_scl; io;             uart1_rx;  i
-    cmn_port[5];;  gpio[9]; io;       can2_rx;  i;  i2c2_sda; io;             uart1_tx;  o
-    cmn_port[6];; gpio[10]; io;       can2_tx;  o;  i2c1_scl; io;             uart2_rx;  i
-    cmn_port[7];; gpio[11]; io;       can2_rx;  i;  i2c1_sda; io;             uart2_tx;  o
-   cmn_port[12];; gpio[16]; io;  i2c2_scl; io;     uart2_rx;  i;      spi2_sel;i
-   cmn_port[13];; gpio[17]; io;  i2c2_sda; io;     uart2_tx;  o;     spi2_miso; io
-   cmn_port[14];; gpio[18]; io;  i2c1_scl; io;  jtagmst_tdi;  i;     spi2_mosi; io
-   cmn_port[15];; gpio[19]; io;  i2c1_sda; io;  jtagmst_tdo;  o;      spi2_sck; io
+    cmn_port[0];;  gpio[4]; oi;       can1_tx;  o;  i2c1_scl; io1;             uart1_rx;  i
+    cmn_port[1];;  gpio[5]; oi;       can1_rx;  i;  i2c1_sda; io1;             uart1_tx;  o
+    cmn_port[2];;  gpio[6]; oi;       can1_tx;  o;  i2c2_scl; io1;             uart2_rx;  i
+    cmn_port[3];;  gpio[7]; oi;       can1_rx;  i;  i2c2_sda; io1;             uart2_tx;  o
+    cmn_port[4];;  gpio[8]; io;       can2_tx;  o;  i2c2_scl; io1;             uart1_rx;  i
+    cmn_port[5];;  gpio[9]; io;       can2_rx;  i;  i2c2_sda; io1;             uart1_tx;  o
+    cmn_port[6];; gpio[10]; io;       can2_tx;  o;  i2c1_scl; io1;             uart2_rx;  i
+    cmn_port[7];; gpio[11]; io;       can2_rx;  i;  i2c1_sda; io1;             uart2_tx;  o
+   cmn_port[12];; gpio[16]; io;  i2c2_scl; io1;     uart2_rx;  i;      spi2_sel;i
+   cmn_port[13];; gpio[17]; io;  i2c2_sda; io1;     uart2_tx;  o;     spi2_miso; io
+   cmn_port[14];; gpio[18]; io;  i2c1_scl; io1;  jtagmst_tdi;  i;     spi2_mosi; io
+   cmn_port[15];; gpio[19]; io;  i2c1_sda; io1;  jtagmst_tdo;  o;      spi2_sck; io
    cmn_port[16];; gpio[20]; io;      spi2_sel;i;  jtagmst_tck;  o;      spi1_sel;i
    cmn_port[17];; gpio[21]; io;     spi2_miso; io;  jtagmst_tms;  o;     spi1_miso; io
    cmn_port[18];; gpio[22]; io;     spi2_mosi; io;             uart1_rx;  i;     spi1_mosi; io
@@ -29,15 +29,15 @@ cmn_port[24];;gpio[28]; io;             uart2_rx;  i;      spi1_sel;i;  gpio[8];
 cmn_port[25];;gpio[29]; io;             uart2_tx;  o;     spi1_miso; io;  gpio[9]; io
 cmn_port[26];;gpio[30]; io;       can2_tx;  o;     spi1_mosi; io; gpio[10]; io
 cmn_port[27];;gpio[31]; io;       can2_rx;  i;      spi1_sck; io; gpio[11]; io
-cmn_port[28];;gpio[32]; io;  i2c1_scl; io;  jtagmst_tdi;  i; gpio[16]; io
-cmn_port[29];;gpio[33]; io;  i2c1_sda; io;  jtagmst_tdo;  o; gpio[17]; io
+cmn_port[28];;gpio[32]; io;  i2c1_scl; io1;  jtagmst_tdi;  i; gpio[16]; io
+cmn_port[29];;gpio[33]; io;  i2c1_sda; io1;  jtagmst_tdo;  o; gpio[17]; io
 cmn_port[30];;gpio[34]; io;;;  jtagmst_tck;  o; gpio[18]; io
 cmn_port[31];;gpio[35]; io;;;  jtagmst_tms;  o; gpio[19]; io
 cmn_port[32];;gpio[36]; io;;;  jtagmst_tdi;  i;;
 cmn_port[33];;gpio[37]; io;;;  jtagmst_tdo;  o;;
-cmn_port[34];;gpio[38]; io;  i2c2_scl; io;  jtagmst_tck;  o;;
-cmn_port[35];;gpio[39]; io;  i2c2_sda; io;  jtagmst_tms;  o;;
- extended_addr[1];;gpio[40]; io;  i2c1_scl; io;             ;   ;;
-ext_cen[2];;gpio[41]; io;  i2c1_sda; io;             ;   ;;
-sp_pin0;;gpio[42]; io;  i2c2_scl; io;             ;   ;;
-sp_pin1;;gpio[43]; io;  i2c2_sda; io;             ;   ;;
+cmn_port[34];;gpio[38]; io;  i2c2_scl; io1;  jtagmst_tck;  o;;
+cmn_port[35];;gpio[39]; io;  i2c2_sda; io1;  jtagmst_tms;  o;;
+ extended_addr[1];;gpio[40]; io;  i2c1_scl; io1;             ;   ;;
+ext_cen[2];;gpio[41]; io;  i2c1_sda; io1;             ;   ;;
+sp_pin0;;gpio[42]; io;  i2c2_scl; io1;             ;   ;;
+sp_pin1;;gpio[43]; io;  i2c2_sda; io1;             ;   ;;

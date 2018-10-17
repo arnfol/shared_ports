@@ -71,7 +71,7 @@ def read_table(file, head_lines=0):
         # handle each row in table
         for row in table:
             # parse external port names
-            signal = re.findall(r'(\w+)', row[name_col])  # find name and if exist -- bit number
+            signal = re.findall(r'([\w\d]+)', row[name_col])  # find name and if exist -- bit number
 
             psig = {
                 'name': signal[0],
@@ -86,9 +86,10 @@ def read_table(file, head_lines=0):
             psig['oe'] = '{name}_oe[{bit}]'.format(**psig) if psig['bit'] is not None else psig['name']+'_oe'
 
             for i in range(len(func_columns)):
-                isig_fullname = re.findall(r'(\w+)', row[func_columns[i]])
 
-                if len(isig_fullname) != 0:
+                isig_fullname = re.findall(r'([\w\d]+)', row[func_columns[i]])
+
+                if len(isig_fullname) > 0:
                     isig = {
                         'name': isig_fullname[0],
                         'bit': None if len(isig_fullname) < 2 else isig_fullname[1],
@@ -101,13 +102,16 @@ def read_table(file, head_lines=0):
                     isig['oe'] = '{name}_oe[{bit}]'.format(**isig) if isig['bit'] is not None else isig['name']+'_oe'
 
                     # rewrite oe with constant if pin is not bidirectional
-                    if isig['direction'] != 'io' and isig['direction'] != 'oi':
-                        if isig['direction'] == 'i' : 
+                    if isig['direction'] not in ['io','oi','io1','oi1']:
+                        if isig['direction'] in ['i','i1'] : 
                             isig['o'] = "1'b0"
                             isig['oe'] = "1'b0"
                         else:
                             isig['i'] = None
                             isig['oe'] = "1'b1"
+
+                    if isig['direction'][-1] == '1':
+                        isig['default'] = 1
 
                     # check if it is already in a list
                     if isig not in isig_list:
@@ -177,7 +181,7 @@ def main():
         # compress bits numbers into bits ranges
         for sig in bus:
             if bus[sig] is not None:
-                bus[sig] = list(ranges(bus[sig]))
+                bus[sig] = list(ranges(set(bus[sig])))
 
         return bus
 
@@ -198,9 +202,9 @@ def main():
         i_gen = False
         for i in isig_list:
             if bus is i['name']:
-                if i['direction'] in ['io','oi','o']:
+                if i['direction'] in ['io','oi','io1','oi1','o']:
                     o_gen = True
-                if i['direction'] in ['io','oi','i']:
+                if i['direction'] in ['io','oi','io1','oi1','i','i1']:
                     i_gen = True
 
         if isig_buses[bus] is None:
@@ -223,6 +227,7 @@ def main():
     # generate output file 
     # ------------------------------------------------------------------------------------
     with open('shared_pins.txt','r') as template:
+        print('Generating source file...')
         result = template.read().format(
             module_name=module_name,
             internal_signals=internal_signals,
@@ -234,6 +239,7 @@ def main():
             connect_matr=connect_matr)
         with open(out_file,'w') as out:
             out.write(result)
+        print('Done!')
 
 
 if __name__ == '__main__':
