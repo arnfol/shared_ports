@@ -2,6 +2,18 @@ import csv
 import re
 import itertools
 
+try:
+    import datetime
+    import getpass
+
+    date = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
+    author = getpass.getuser()
+
+except:
+    date = ""
+    author = ""
+
+
 # ---------------------------------------------------------------------------------
 # CONFIGURATION
 # ---------------------------------------------------------------------------------
@@ -232,6 +244,8 @@ def main():
     with open('shared_pins.txt','r') as template:
         print('Generating source file...')
         result = template.read().format(
+            date=date,
+            author=author,
             module_name=module_name,
             internal_signals=internal_signals,
             peripheral_signals=peripheral_signals, 

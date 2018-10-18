@@ -1,3 +1,10 @@
+/*
+	This is an automatically generated file.
+
+	Date: {date}
+	Author: {author}
+
+*/
 module {module_name} (
 	// internal signals
 {internal_signals}

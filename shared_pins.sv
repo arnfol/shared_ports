@@ -1,3 +1,10 @@
+/*
+	This is an automatically generated file.
+
+	Date: 2018-10-19 00:03
+	Author: wazah
+
+*/
 module shared_pins (
 	// internal signals
 	output logic can1_rx_i,
