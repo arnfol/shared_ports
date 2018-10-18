@@ -6,7 +6,7 @@ Shared ports module generator is a _Python_ script, which automatically generate
 
 Practical use of this module is the ease of pinout reconfiguration during the development process, thus making iterative advancement much easier.
 
-Script was written for Python 3.6.6.
+The script was written for Python 3.6.6.
 
 ## Features
 
@@ -39,6 +39,8 @@ Internal connection columns should contain either an internal signal name or not
 The default input value is the value, which the module sets on the external connection input when a particular function is not chosen.
 
 ## Module behaviour
+
+Control of the pins commutation is provided through the *port_mode* two-dimensional bus. The most significant index stands for external port choice. The ports go in the order they are given in the configuration table (*port_mode[0]* corresponds to the first port in the table). The value of the sub-bus specifies the active internal connection.
 
 The generated module is fully combinational, so the maximum frequency depends on the distance between pins and connected IP cores and also configuration table width.
 
