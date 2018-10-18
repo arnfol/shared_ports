@@ -6,6 +6,8 @@ Shared ports module generator is a _Python_ script, which automatically generate
 
 Practical use of this module is the ease of pinout reconfiguration during the development process, thus making iterative advancement much easier.
 
+Script was written for Python 3.6.6.
+
 ## Features
 
 - Configurable through *.csv* table
