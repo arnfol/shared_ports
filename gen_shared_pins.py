@@ -2,17 +2,20 @@ import csv
 import re
 import itertools
 
-module_name = 'shared_pins'
-inp_file = 'example_table.csv'
-out_file = module_name + '.sv'
+# ---------------------------------------------------------------------------------
+# CONFIGURATION
+# ---------------------------------------------------------------------------------
+module_name = 'shared_pins'  # systemverilog module name
+inp_file = 'example_table.csv'  # configuration table file
+out_file = module_name + '.sv'  # generated systemverilog file name
 
 # Number of header lines
 head_lines = 7
 
 # Column numbers
-name_col = 0
-func_columns = [2, 4, 6, 8]
-func_dir_columns = [3, 5, 7, 9]
+name_col = 0  # external port names column
+func_columns = [2, 4, 6, 8]  # function columns
+func_dir_columns = [3, 5, 7, 9]  # direction columns
 
 # ---------------------------------------------------------------------------------
 # templates
