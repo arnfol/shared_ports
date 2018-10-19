@@ -1,7 +1,7 @@
 /*
 	This is an automatically generated file.
 
-	Date: 2018-10-19 23:23
+	Date: 2018-10-19 23:33
 	Author: wazah
 
 */
@@ -14,12 +14,9 @@ module shared_pins (
 	input        can1_tx_o,
 	output logic can2_rx_i,
 	input        can2_tx_o,
-	input        [11:4] gpio_o,
-	input        [11:4] gpio_oe,
-	output logic [11:4] gpio_i,
-	input        [43:16] gpio_o,
-	input        [43:16] gpio_oe,
-	output logic [43:16] gpio_i,
+	input        [43:4] gpio_o,
+	input        [43:4] gpio_oe,
+	output logic [43:4] gpio_i,
 	input        i2c1_scl_o,
 	input        i2c1_scl_oe,
 	output logic i2c1_scl_i,
@@ -63,9 +60,9 @@ module shared_pins (
 
 
 	// peripheral signals
-	output logic [7:0] cmn_port_o,
-	output logic [7:0] cmn_port_oe,
-	input        [7:0] cmn_port_i,
+	output logic [7:0] cmn_port1_o,
+	output logic [7:0] cmn_port1_oe,
+	input        [7:0] cmn_port1_i,
 	output logic [35:12] cmn_port_o,
 	output logic [35:12] cmn_port_oe,
 	input        [35:12] cmn_port_i,
@@ -127,57 +124,57 @@ module shared_pins (
 	------------------------------------------------------------------------------*/
 
 
-	assign cmn_port_o[0] = matr_o[0][port_mode[0]]; 
-	assign cmn_port_oe[0] = matr_oe[0][port_mode[0]]; 
+	assign cmn_port1_o[0] = matr_o[0][port_mode[0]]; 
+	assign cmn_port1_oe[0] = matr_oe[0][port_mode[0]]; 
 	always_comb begin 
 		matr_ie[0] = '0;
 		matr_ie[0][port_mode[0]] = 1;
 	end
 
-	assign cmn_port_o[1] = matr_o[1][port_mode[1]]; 
-	assign cmn_port_oe[1] = matr_oe[1][port_mode[1]]; 
+	assign cmn_port1_o[1] = matr_o[1][port_mode[1]]; 
+	assign cmn_port1_oe[1] = matr_oe[1][port_mode[1]]; 
 	always_comb begin 
 		matr_ie[1] = '0;
 		matr_ie[1][port_mode[1]] = 1;
 	end
 
-	assign cmn_port_o[2] = matr_o[2][port_mode[2]]; 
-	assign cmn_port_oe[2] = matr_oe[2][port_mode[2]]; 
+	assign cmn_port1_o[2] = matr_o[2][port_mode[2]]; 
+	assign cmn_port1_oe[2] = matr_oe[2][port_mode[2]]; 
 	always_comb begin 
 		matr_ie[2] = '0;
 		matr_ie[2][port_mode[2]] = 1;
 	end
 
-	assign cmn_port_o[3] = matr_o[3][port_mode[3]]; 
-	assign cmn_port_oe[3] = matr_oe[3][port_mode[3]]; 
+	assign cmn_port1_o[3] = matr_o[3][port_mode[3]]; 
+	assign cmn_port1_oe[3] = matr_oe[3][port_mode[3]]; 
 	always_comb begin 
 		matr_ie[3] = '0;
 		matr_ie[3][port_mode[3]] = 1;
 	end
 
-	assign cmn_port_o[4] = matr_o[4][port_mode[4]]; 
-	assign cmn_port_oe[4] = matr_oe[4][port_mode[4]]; 
+	assign cmn_port1_o[4] = matr_o[4][port_mode[4]]; 
+	assign cmn_port1_oe[4] = matr_oe[4][port_mode[4]]; 
 	always_comb begin 
 		matr_ie[4] = '0;
 		matr_ie[4][port_mode[4]] = 1;
 	end
 
-	assign cmn_port_o[5] = matr_o[5][port_mode[5]]; 
-	assign cmn_port_oe[5] = matr_oe[5][port_mode[5]]; 
+	assign cmn_port1_o[5] = matr_o[5][port_mode[5]]; 
+	assign cmn_port1_oe[5] = matr_oe[5][port_mode[5]]; 
 	always_comb begin 
 		matr_ie[5] = '0;
 		matr_ie[5][port_mode[5]] = 1;
 	end
 
-	assign cmn_port_o[6] = matr_o[6][port_mode[6]]; 
-	assign cmn_port_oe[6] = matr_oe[6][port_mode[6]]; 
+	assign cmn_port1_o[6] = matr_o[6][port_mode[6]]; 
+	assign cmn_port1_oe[6] = matr_oe[6][port_mode[6]]; 
 	always_comb begin 
 		matr_ie[6] = '0;
 		matr_ie[6][port_mode[6]] = 1;
 	end
 
-	assign cmn_port_o[7] = matr_o[7][port_mode[7]]; 
-	assign cmn_port_oe[7] = matr_oe[7][port_mode[7]]; 
+	assign cmn_port1_o[7] = matr_o[7][port_mode[7]]; 
+	assign cmn_port1_oe[7] = matr_oe[7][port_mode[7]]; 
 	always_comb begin 
 		matr_ie[7] = '0;
 		matr_ie[7][port_mode[7]] = 1;
@@ -387,10 +384,10 @@ module shared_pins (
 	always_comb begin
 		can1_rx_i = 0;
 		can2_rx_i = 0;
-		gpio_i[4] = 0;
-		gpio_i[5] = 0;
-		gpio_i[6] = 0;
-		gpio_i[7] = 0;
+		gpio_i[14] = 0;
+		gpio_i[15] = 0;
+		gpio_i[12] = 0;
+		gpio_i[13] = 0;
 		gpio_i[8] = 0;
 		gpio_i[9] = 0;
 		gpio_i[10] = 0;
@@ -444,53 +441,53 @@ module shared_pins (
 		uart2_rx_i = 0;
 
 
-		matr_o[0] = {gpio_o[4], can1_tx_o, i2c1_scl_o, 1'b0};
-		matr_oe[0] = {gpio_oe[4], 1'b1, i2c1_scl_oe, 1'b0};
-		if(matr_ie[0][0]) gpio_i[4] = cmn_port_i[0];
-		if(matr_ie[0][2]) i2c1_scl_i = cmn_port_i[0];
-		if(matr_ie[0][3]) uart1_rx_i = cmn_port_i[0];
+		matr_o[0] = {gpio_o[14], can1_tx_o, i2c1_scl_o, 1'b0};
+		matr_oe[0] = {gpio_oe[14], 1'b1, i2c1_scl_oe, 1'b0};
+		if(matr_ie[0][0]) gpio_i[14] = cmn_port1_i[0];
+		if(matr_ie[0][2]) i2c1_scl_i = cmn_port1_i[0];
+		if(matr_ie[0][3]) uart1_rx_i = cmn_port1_i[0];
 
-		matr_o[1] = {gpio_o[5], 1'b0, i2c1_sda_o, uart1_tx_o};
-		matr_oe[1] = {gpio_oe[5], 1'b0, i2c1_sda_oe, 1'b1};
-		if(matr_ie[1][0]) gpio_i[5] = cmn_port_i[1];
-		if(matr_ie[1][1]) can1_rx_i = cmn_port_i[1];
-		if(matr_ie[1][2]) i2c1_sda_i = cmn_port_i[1];
+		matr_o[1] = {gpio_o[15], 1'b0, i2c1_sda_o, uart1_tx_o};
+		matr_oe[1] = {gpio_oe[15], 1'b0, i2c1_sda_oe, 1'b1};
+		if(matr_ie[1][0]) gpio_i[15] = cmn_port1_i[1];
+		if(matr_ie[1][1]) can1_rx_i = cmn_port1_i[1];
+		if(matr_ie[1][2]) i2c1_sda_i = cmn_port1_i[1];
 
-		matr_o[2] = {gpio_o[6], can1_tx_o, i2c2_scl_o, 1'b0};
-		matr_oe[2] = {gpio_oe[6], 1'b1, i2c2_scl_oe, 1'b0};
-		if(matr_ie[2][0]) gpio_i[6] = cmn_port_i[2];
-		if(matr_ie[2][2]) i2c2_scl_i = cmn_port_i[2];
-		if(matr_ie[2][3]) uart2_rx_i = cmn_port_i[2];
+		matr_o[2] = {gpio_o[12], can1_tx_o, i2c2_scl_o, 1'b0};
+		matr_oe[2] = {gpio_oe[12], 1'b1, i2c2_scl_oe, 1'b0};
+		if(matr_ie[2][0]) gpio_i[12] = cmn_port1_i[2];
+		if(matr_ie[2][2]) i2c2_scl_i = cmn_port1_i[2];
+		if(matr_ie[2][3]) uart2_rx_i = cmn_port1_i[2];
 
-		matr_o[3] = {gpio_o[7], 1'b0, i2c2_sda_o, uart2_tx_o};
-		matr_oe[3] = {gpio_oe[7], 1'b0, i2c2_sda_oe, 1'b1};
-		if(matr_ie[3][0]) gpio_i[7] = cmn_port_i[3];
-		if(matr_ie[3][1]) can1_rx_i = cmn_port_i[3];
-		if(matr_ie[3][2]) i2c2_sda_i = cmn_port_i[3];
+		matr_o[3] = {gpio_o[13], 1'b0, i2c2_sda_o, uart2_tx_o};
+		matr_oe[3] = {gpio_oe[13], 1'b0, i2c2_sda_oe, 1'b1};
+		if(matr_ie[3][0]) gpio_i[13] = cmn_port1_i[3];
+		if(matr_ie[3][1]) can1_rx_i = cmn_port1_i[3];
+		if(matr_ie[3][2]) i2c2_sda_i = cmn_port1_i[3];
 
 		matr_o[4] = {gpio_o[8], can2_tx_o, i2c2_scl_o, 1'b0};
 		matr_oe[4] = {gpio_oe[8], 1'b1, i2c2_scl_oe, 1'b0};
-		if(matr_ie[4][0]) gpio_i[8] = cmn_port_i[4];
-		if(matr_ie[4][2]) i2c2_scl_i = cmn_port_i[4];
-		if(matr_ie[4][3]) uart1_rx_i = cmn_port_i[4];
+		if(matr_ie[4][0]) gpio_i[8] = cmn_port1_i[4];
+		if(matr_ie[4][2]) i2c2_scl_i = cmn_port1_i[4];
+		if(matr_ie[4][3]) uart1_rx_i = cmn_port1_i[4];
 
 		matr_o[5] = {gpio_o[9], 1'b0, i2c2_sda_o, uart1_tx_o};
 		matr_oe[5] = {gpio_oe[9], 1'b0, i2c2_sda_oe, 1'b1};
-		if(matr_ie[5][0]) gpio_i[9] = cmn_port_i[5];
-		if(matr_ie[5][1]) can2_rx_i = cmn_port_i[5];
-		if(matr_ie[5][2]) i2c2_sda_i = cmn_port_i[5];
+		if(matr_ie[5][0]) gpio_i[9] = cmn_port1_i[5];
+		if(matr_ie[5][1]) can2_rx_i = cmn_port1_i[5];
+		if(matr_ie[5][2]) i2c2_sda_i = cmn_port1_i[5];
 
 		matr_o[6] = {gpio_o[10], can2_tx_o, i2c1_scl_o, 1'b0};
 		matr_oe[6] = {gpio_oe[10], 1'b1, i2c1_scl_oe, 1'b0};
-		if(matr_ie[6][0]) gpio_i[10] = cmn_port_i[6];
-		if(matr_ie[6][2]) i2c1_scl_i = cmn_port_i[6];
-		if(matr_ie[6][3]) uart2_rx_i = cmn_port_i[6];
+		if(matr_ie[6][0]) gpio_i[10] = cmn_port1_i[6];
+		if(matr_ie[6][2]) i2c1_scl_i = cmn_port1_i[6];
+		if(matr_ie[6][3]) uart2_rx_i = cmn_port1_i[6];
 
 		matr_o[7] = {gpio_o[11], 1'b0, i2c1_sda_o, uart2_tx_o};
 		matr_oe[7] = {gpio_oe[11], 1'b0, i2c1_sda_oe, 1'b1};
-		if(matr_ie[7][0]) gpio_i[11] = cmn_port_i[7];
-		if(matr_ie[7][1]) can2_rx_i = cmn_port_i[7];
-		if(matr_ie[7][2]) i2c1_sda_i = cmn_port_i[7];
+		if(matr_ie[7][0]) gpio_i[11] = cmn_port1_i[7];
+		if(matr_ie[7][1]) can2_rx_i = cmn_port1_i[7];
+		if(matr_ie[7][2]) i2c1_sda_i = cmn_port1_i[7];
 
 		matr_o[8] = {gpio_o[16], i2c2_scl_o, 1'b0, 1'b0};
 		matr_oe[8] = {gpio_oe[16], i2c2_scl_oe, 1'b0, 1'b0};

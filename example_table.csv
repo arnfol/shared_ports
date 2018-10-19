@@ -5,14 +5,14 @@ Number of function columns can be configurated in the script.;;;;;;;;;
 ;;;;;;;;;
 ;;;;;;;;;
 External port;Address;Function 0;;Function 1;;Function 2;;Function 3;
-    cmn_port[0];;  gpio[4]; oi;       can1_tx;  o;  i2c1_scl; io1;             uart1_rx;  i
-    cmn_port[1];;  gpio[5]; oi;       can1_rx;  i;  i2c1_sda; io1;             uart1_tx;  o
-    cmn_port[2];;  gpio[6]; oi;       can1_tx;  o;  i2c2_scl; io1;             uart2_rx;  i
-    cmn_port[3];;  gpio[7]; oi;       can1_rx;  i;  i2c2_sda; io1;             uart2_tx;  o
-    cmn_port[4];;  gpio[8]; io;       can2_tx;  o;  i2c2_scl; io1;             uart1_rx;  i
-    cmn_port[5];;  gpio[9]; io;       can2_rx;  i;  i2c2_sda; io1;             uart1_tx;  o
-    cmn_port[6];; gpio[10]; io;       can2_tx;  o;  i2c1_scl; io1;             uart2_rx;  i
-    cmn_port[7];; gpio[11]; io;       can2_rx;  i;  i2c1_sda; io1;             uart2_tx;  o
+   cmn_port1[0];; gpio[14]; oi;       can1_tx;  o;  i2c1_scl; io1;             uart1_rx;  i
+   cmn_port1[1];; gpio[15]; oi;       can1_rx;  i;  i2c1_sda; io1;             uart1_tx;  o
+   cmn_port1[2];; gpio[12]; oi;       can1_tx;  o;  i2c2_scl; io1;             uart2_rx;  i
+   cmn_port1[3];; gpio[13]; oi;       can1_rx;  i;  i2c2_sda; io1;             uart2_tx;  o
+   cmn_port1[4];;  gpio[8]; io;       can2_tx;  o;  i2c2_scl; io1;             uart1_rx;  i
+   cmn_port1[5];;  gpio[9]; io;       can2_rx;  i;  i2c2_sda; io1;             uart1_tx;  o
+   cmn_port1[6];; gpio[10]; io;       can2_tx;  o;  i2c1_scl; io1;             uart2_rx;  i
+   cmn_port1[7];; gpio[11]; io;       can2_rx;  i;  i2c1_sda; io1;             uart2_tx;  o
    cmn_port[12];; gpio[16]; io;  i2c2_scl; io1;     uart2_rx;  i;      spi2_sel;i
    cmn_port[13];; gpio[17]; io;  i2c2_sda; io1;     uart2_tx;  o;     spi2_miso; io
    cmn_port[14];; gpio[18]; io;  i2c1_scl; io1;  jtagmst_tdi;  i;     spi2_mosi; io
