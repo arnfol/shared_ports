@@ -1,11 +1,14 @@
 /*
 	This is an automatically generated file.
 
-	Date: 2018-10-19 00:03
+	Date: 2018-10-19 23:23
 	Author: wazah
 
 */
 module shared_pins (
+	input clk,
+	input rst_n,
+
 	// internal signals
 	output logic can1_rx_i,
 	input        can1_tx_o,
@@ -80,12 +83,44 @@ module shared_pins (
 	input        sp_pin1_i,
 
 
-	input [35:0][1:0] port_mode
-);
+	// APB bus
+	input               psel      ,
+	input               penable   ,
+	input        [31:0] paddr     ,
+	input               pwrite    ,
+	input        [31:0] pwdata    ,
+	output logic [31:0] prdata
+	);
+
+	logic [35:0][1:0] port_mode;
 
 	logic [35:0][1:0] matr_o ;
 	logic [35:0][1:0] matr_oe;
 	logic [35:0][1:0] matr_ie;
+
+	/*------------------------------------------------------------------------------
+	--  APB REGISTERS
+	------------------------------------------------------------------------------*/
+	// apb read
+	always @(posedge clk or negedge rst_n) begin
+		if(~rst_n) begin
+			prdata <= 0;
+		end else if(psel & ~penable) begin
+			prdata <= port_mode[paddr[31:2]];
+		end
+	end
+
+	// apb write
+	genvar i;
+	generate for (i = 0; i <= 35; i++) begin : gen_port_mode
+		always @(posedge clk or negedge rst_n) begin 
+			if(~rst_n) begin
+				port_mode[i] <= 0;
+			end else if(psel & ~penable & pwrite & (paddr[31:2] == i)) begin
+				port_mode[i] <= pwdata;
+			end
+		end
+	end endgenerate
 
 	/*------------------------------------------------------------------------------
 	--  MUX CONTROL

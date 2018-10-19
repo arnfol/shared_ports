@@ -6,18 +6,53 @@
 
 */
 module {module_name} (
+	input clk,
+	input rst_n,
+
 	// internal signals
 {internal_signals}
 
 	// peripheral signals
 {peripheral_signals}
 
-	input [{psignal_max}:0][{isignal_clog2_max}:0] port_mode
-);
+	// APB bus
+	input               psel      ,
+	input               penable   ,
+	input        [31:0] paddr     ,
+	input               pwrite    ,
+	input        [31:0] pwdata    ,
+	output logic [31:0] prdata
+	);
+
+	logic [{psignal_max}:0][{isignal_clog2_max}:0] port_mode;
 
 	logic [{psignal_max}:0][{isignal_clog2_max}:0] matr_o ;
 	logic [{psignal_max}:0][{isignal_clog2_max}:0] matr_oe;
 	logic [{psignal_max}:0][{isignal_clog2_max}:0] matr_ie;
+
+	/*------------------------------------------------------------------------------
+	--  APB REGISTERS
+	------------------------------------------------------------------------------*/
+	// apb read
+	always @(posedge clk or negedge rst_n) begin
+		if(~rst_n) begin
+			prdata <= 0;
+		end else if(psel & ~penable) begin
+			prdata <= port_mode[paddr[31:2]];
+		end
+	end
+
+	// apb write
+	genvar i;
+	generate for (i = 0; i <= {psignal_max}; i++) begin : gen_port_mode
+		always @(posedge clk or negedge rst_n) begin 
+			if(~rst_n) begin
+				port_mode[i] <= 0;
+			end else if(psel & ~penable & pwrite & (paddr[31:2] == i)) begin
+				port_mode[i] <= pwdata;
+			end
+		end
+	end endgenerate
 
 	/*------------------------------------------------------------------------------
 	--  MUX CONTROL
