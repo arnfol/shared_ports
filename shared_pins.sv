@@ -1,8 +1,8 @@
 /*
 	This is an automatically generated file.
 
-	Date: 2018-10-19 23:33
-	Author: wazah
+	Date: 2018-10-20 11:51
+	Author: Wazah
 
 */
 module shared_pins (
@@ -91,9 +91,9 @@ module shared_pins (
 
 	logic [35:0][1:0] port_mode;
 
-	logic [35:0][1:0] matr_o ;
-	logic [35:0][1:0] matr_oe;
-	logic [35:0][1:0] matr_ie;
+	logic [35:0][3:0] matr_o ;
+	logic [35:0][3:0] matr_oe;
+	logic [35:0][3:0] matr_ie;
 
 	/*------------------------------------------------------------------------------
 	--  APB REGISTERS
