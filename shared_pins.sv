@@ -1,7 +1,7 @@
 /*
 	This is an automatically generated file.
 
-	Date: 2018-10-19 23:33
+	Date: 2019-01-01 18:39
 	Author: wazah
 
 */
@@ -103,7 +103,7 @@ module shared_pins (
 		if(~rst_n) begin
 			prdata <= 0;
 		end else if(psel & ~penable) begin
-			prdata <= port_mode[paddr[31:2]];
+			prdata <= port_mode[paddr[7:2]];
 		end
 	end
 
@@ -113,7 +113,7 @@ module shared_pins (
 		always @(posedge clk or negedge rst_n) begin 
 			if(~rst_n) begin
 				port_mode[i] <= 0;
-			end else if(psel & ~penable & pwrite & (paddr[31:2] == i)) begin
+			end else if(psel & ~penable & pwrite & (paddr[7:2] == i)) begin
 				port_mode[i] <= pwdata;
 			end
 		end

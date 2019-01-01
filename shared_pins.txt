@@ -38,7 +38,7 @@ module {module_name} (
 		if(~rst_n) begin
 			prdata <= 0;
 		end else if(psel & ~penable) begin
-			prdata <= port_mode[paddr[31:2]];
+			prdata <= port_mode[paddr[{psignal_clog2_max}:2]];
 		end
 	end
 
@@ -48,7 +48,7 @@ module {module_name} (
 		always @(posedge clk or negedge rst_n) begin 
 			if(~rst_n) begin
 				port_mode[i] <= 0;
-			end else if(psel & ~penable & pwrite & (paddr[31:2] == i)) begin
+			end else if(psel & ~penable & pwrite & (paddr[{psignal_clog2_max}:2] == i)) begin
 				port_mode[i] <= pwdata;
 			end
 		end
