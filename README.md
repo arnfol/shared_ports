@@ -70,6 +70,29 @@ if(*port_name*_oe) port = *port_name*_o;
 
 Set of signals for internal connections depends on the direction and could contain just the same signals. Please note that port directions in the *SystemVerilog* module are reverse to the name postfixes ("\_i" is output, while "\_o" and "\_oe" are inputs).
 
+### APB registers map
+
+Each register is aligned to 32-bit word bounds, which means 2 least significant bits of paddr bus are not used and should always be zeros.
+
+Register field types:
+
+- **RW** - Read-Write field
+- **WO** - Write-Only field
+- **RO** - Read-Only field
+
+#### Port select
+
+_Address: x0000 - (Number of External Ports - 1)*4_
+
+| -1BITS    | ACCESS | RST VALUE | DESCRIPTION        |
+| --------- | ------ | --------- | ------------------ |
+| 31-*SIZE* | RO     | 0         | Not used           |
+| *SIZE*-0  | RW     | 0         | Port select signal |
+
+**Note:** *SIZE*=clog2(Number of Internal Connections)-1
+
+**Note:** Address of port select registers follow the order of external signals in the table. Thus, register 0x0000 corresponds to the first signal, register 0x0004 to the second, etc.
+
 ## Synthesis
 
 Despite the APB registers, the generated module is fully combinational, so the maximum frequency depends on the number of functions per peripheral port and also the distance on the chip between pins and connected IP cores.
