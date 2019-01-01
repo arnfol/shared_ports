@@ -251,6 +251,7 @@ def main():
             peripheral_signals=peripheral_signals, 
             psignal_max=len(psig_list)-1,
             psignal_clog2_max=(len(psig_list)-1).bit_length()+1,
+            isignal_max=len(func_columns)-1, 
             isignal_clog2_max=(len(func_columns)-1).bit_length()-1, 
             mux_control=mux_control,
             connect_default=connect_default,

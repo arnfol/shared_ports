@@ -91,9 +91,9 @@ module shared_pins (
 
 	logic [35:0][1:0] port_mode;
 
-	logic [35:0][1:0] matr_o ;
-	logic [35:0][1:0] matr_oe;
-	logic [35:0][1:0] matr_ie;
+	logic [35:0][3:0] matr_o ;
+	logic [35:0][3:0] matr_oe;
+	logic [35:0][3:0] matr_ie;
 
 	/*------------------------------------------------------------------------------
 	--  APB REGISTERS
