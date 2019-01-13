@@ -241,6 +241,10 @@ def main():
     # ------------------------------------------------------------------------------------
     # generate output file 
     # ------------------------------------------------------------------------------------
+
+    # number of control apb registers
+    regs_max = len(psig_list)//4-1 if (len(psig_list)%4 == 0) else len(psig_list)//4
+
     with open('shared_pins.txt','r') as template:
         print('Generating source file...')
         result = template.read().format(
@@ -250,7 +254,8 @@ def main():
             internal_signals=internal_signals,
             peripheral_signals=peripheral_signals, 
             psignal_max=len(psig_list)-1,
-            psignal_clog2_max=(len(psig_list)-1).bit_length()+1,
+            regs_max=regs_max,
+            regs_clog2_max=regs_max.bit_length()+1, # +1 because the least significant bit of paddr is 2
             isignal_max=len(func_columns)-1, 
             isignal_clog2_max=(len(func_columns)-1).bit_length()-1, 
             mux_control=mux_control,

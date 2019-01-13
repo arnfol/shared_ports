@@ -1,8 +1,8 @@
 /*
 	This is an automatically generated file.
 
-	Date: 2019-01-01 18:39
-	Author: wazah
+	Date: 2019-01-13 19:57
+	Author: arnfo
 
 */
 module shared_pins (
@@ -90,6 +90,7 @@ module shared_pins (
 	);
 
 	logic [35:0][1:0] port_mode;
+	logic [8:0][3:0][7:0] apb_regs;
 
 	logic [35:0][3:0] matr_o ;
 	logic [35:0][3:0] matr_oe;
@@ -103,21 +104,27 @@ module shared_pins (
 		if(~rst_n) begin
 			prdata <= 0;
 		end else if(psel & ~penable) begin
-			prdata <= port_mode[paddr[7:2]];
+			prdata <= apb_regs[paddr[5:2]];
 		end
 	end
 
 	// apb write
 	genvar i;
-	generate for (i = 0; i <= 35; i++) begin : gen_port_mode
+	generate for (i = 0; i <= 8; i++) begin : gen_apb_regs
 		always @(posedge clk or negedge rst_n) begin 
 			if(~rst_n) begin
-				port_mode[i] <= 0;
-			end else if(psel & ~penable & pwrite & (paddr[7:2] == i)) begin
-				port_mode[i] <= pwdata;
+				apb_regs[i] <= 0;
+			end else if(psel & ~penable & pwrite & (paddr[5:2] == i)) begin
+				apb_regs[i] <= pwdata;
 			end
 		end
 	end endgenerate
+
+	// connect port_mode to apb registers
+	generate for (i = 0; i <= 35; i++) begin : gen_port_mode
+		assign port_mode[i] = apb_regs[i/4][i%4];
+		assign apb_regs[i/4][i%4] = port_mode[i];
+	end	endgenerate
 
 	/*------------------------------------------------------------------------------
 	--  MUX CONTROL
