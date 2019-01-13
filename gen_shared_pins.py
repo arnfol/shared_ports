@@ -245,7 +245,7 @@ def main():
     # number of control apb registers
     regs_max = len(psig_list)//4-1 if (len(psig_list)%4 == 0) else len(psig_list)//4
 
-    with open('shared_pins.txt','r') as template:
+    with open('shared_pins_template.txt','r') as template:
         print('Generating source file...')
         result = template.read().format(
             date=date,

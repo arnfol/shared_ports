@@ -1,0 +1,22 @@
+/*
+	This is an automatically generated file.
+
+	Date: {date}
+	Author: {author}
+
+*/
+
+// shared_pins address
+#define SHARED_PINS_ADDR {addr}
+
+enum {{ {isig0}, {isig1}, {isig2}, {isig3} }} {psig_name}_type;
+// ...
+// enum {{ {isig0}, {isig1}, {isig2}, {isig3} }} {psig_name}_type;
+
+typedef struct mux_type {
+    {psig_name}_type {psig_name}:8;
+    // ...
+    // {psig_name}_type {psig_name};
+} mux_type;
+
+#define MUX ((mux_type*)SHARED_PINS_ADDR)
