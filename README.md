@@ -84,16 +84,16 @@ Register field types:
 
 _Address: x0000 - (Number of External Ports - 1)*4_
 
-|   BITS    | ACCESS | RST VALUE | DESCRIPTION        |
-| --------- | ------ | --------- | ------------------ |
+|   BITS       | ACCESS | RST VALUE | DESCRIPTION        |
+| ------------ | ------ | --------- | ------------------ |
 | 31-*24+SIZE* | RO     | 0         | Not used           |
 | *24+SIZE*-0  | RW     | 0         | Port select signal |
 | 24-*16+SIZE* | RO     | 0         | Not used           |
 | *16+SIZE*-16 | RW     | 0         | Port select signal |
-| 15-*8+SIZE* | RO     | 0         | Not used           |
-| *8+SIZE*-8  | RW     | 0         | Port select signal |
-|  7-*SIZE* | RO     | 0         | Not used           |
-| *SIZE*-0  | RW     | 0         | Port select signal |
+| 15-*8+SIZE*  | RO     | 0         | Not used           |
+| *8+SIZE*-8   | RW     | 0         | Port select signal |
+|  7-*SIZE*    | RO     | 0         | Not used           |
+| *SIZE*-0     | RW     | 0         | Port select signal |
 
 **Note:** *SIZE*=clog2(Number of Internal Connections)-1
 
