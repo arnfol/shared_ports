@@ -42,7 +42,7 @@ The default input value is the value, which the module sets on the external conn
 
 ### AMBA APB interface
 
-Control of the pins commutation is provided through the simple APB interface. Address of the register corresponding to a particular port depends on the port string number in the configuration table. For example, the register with address 0x00000000 controls the uppermost port in the .csv table, the next address 0x00000004 - the second port and so on.
+Control of the pins commutation is provided through the simple APB interface. Address of the register corresponding to a particular port depends on the port string number in the configuration table. Each register stores 4 fields with corresponding ports controls. For example, the register with address 0x00000000 consists of control fields for 4 upper signals in the table (least significant byte corresponds to the first signal).
 
 | Signal  | Direction | Width | Description                                                  |
 | ------- | --------- | ----- | ------------------------------------------------------------ |
@@ -56,19 +56,6 @@ Control of the pins commutation is provided through the simple APB interface. Ad
 **Note:** APB interface do not have signal PREADY. This means that salve is always ready for operation and PREADY=1.
 
 **Note:** Each register is aligned to 32-bit word bounds, which means 2 least significant bits of paddr bus are not used and should always be zeros.
-
-### Peripheral cells
-
-For each external port module provides 3 signals: *port_name*\_o, *port_name*\_oe and *port_name*_i. These signals are designed to drive peripheral cell with the following behavior:    
-
-```
-*port_name*_i = port;
-if(*port_name*_oe) port = *port_name*_o;
-```
-
-### Internal connections
-
-Set of signals for internal connections depends on the direction and could contain just the same signals. Please note that port directions in the *SystemVerilog* module are reverse to the name postfixes ("\_i" is output, while "\_o" and "\_oe" are inputs).
 
 ### APB registers map
 
@@ -98,6 +85,23 @@ _Address: x0000 - (Number of External Ports - 1)*4_
 **Note:** *SIZE*=clog2(Number of Internal Connections)-1
 
 **Note:** Address of port select registers follow the order of external signals in the table. Thus, register 0x0000 corresponds to the first signal, register 0x0004 to the second, etc.
+
+### Peripheral cells
+
+For each external port module provides 3 signals: *port_name*\_o, *port_name*\_oe and *port_name*_i. These signals are designed to drive peripheral cell with the following behavior:    
+
+```
+*port_name*_i = port;
+if(*port_name*_oe) port = *port_name*_o;
+```
+
+### Internal connections
+
+Set of signals for internal connections depends on the direction and could contain just the same signals. Please note that port directions in the *SystemVerilog* module are reverse to the name postfixes ("\_i" is output, while "\_o" and "\_oe" are inputs).
+
+
+## C header file
+Another provided script, _gen_c_header.py_, can generate simple c header file for ease of module integration into processor system. All the script settings are passed through the main script. Only address of the module in the processor system should be either configured in the script (variable _shared_pins_apb_addr_) or changed in the generated header file.
 
 ## Synthesis
 
