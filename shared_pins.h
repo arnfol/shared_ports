@@ -2,7 +2,7 @@
 /*
     This is an automatically generated file.
 
-    Date: 2019-01-16 23:07
+    Date: 2019-01-17 01:27
     Author: arnfo
 
     Usage:
@@ -11,7 +11,7 @@
 */
 
 // shared_pins address
-#define SHARED_PINS_ADDR 0
+#define SHARED_PINS_ADDR 0x00000000
 
 // ----------------------------------------------------------------
 // Register types
