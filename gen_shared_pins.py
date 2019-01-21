@@ -141,6 +141,44 @@ def read_table(file, head_lines=0):
         return psig_list, sorted(isig_list,key=lambda k: k['name'])
 
 
+def create_bus(signals):
+
+
+    def ranges(i):
+        for a, b in itertools.groupby(enumerate(i), lambda x: x[0]-x[1]):
+            b = list(b)
+            yield b[0][1], b[-1][1]
+
+            
+    bus = {}
+    # make dict with all bits in a buses
+    for sig in signals:
+        if sig['bit'] is None:
+            bus[sig['name']] = None
+        elif sig['name'] in bus:
+            bus[sig['name']].append(int(sig['bit']))
+        else:
+            bus[sig['name']] = [int(sig['bit'])]
+
+    # compress bits numbers into bits ranges
+    for sig in bus:
+        if bus[sig] is not None:
+            bus[sig] = list(ranges(set(bus[sig])))
+
+    return bus
+
+
+def count_buses(buses):
+    bus_num = 0
+    for bus in buses:
+        if buses[bus] is not None:
+            for subbus in buses[bus]:
+                if subbus[0]!=subbus[1]:
+                    bus_num += 1
+
+    return bus_num
+
+
 def main():
     # ------------------------------------------------------------------------------------
     # read configuration table
@@ -177,28 +215,6 @@ def main():
         p['o_connections'] = ', '.join([conn(x, 'o') for x in p['connections']])
         connect_matr += connect_matr_templ.format(matr_ie=matr_ie,**p)
 
-    def ranges(i):
-        for a, b in itertools.groupby(enumerate(i), lambda x: x[0]-x[1]):
-            b = list(b)
-            yield b[0][1], b[-1][1]
-
-    def create_bus(signals):
-        bus = {}
-        # make dict with all bits in a buses
-        for sig in signals:
-            if sig['bit'] is None:
-                bus[sig['name']] = None
-            elif sig['name'] in bus:
-                bus[sig['name']].append(int(sig['bit']))
-            else:
-                bus[sig['name']] = [int(sig['bit'])]
-
-        # compress bits numbers into bits ranges
-        for sig in bus:
-            if bus[sig] is not None:
-                bus[sig] = list(ranges(set(bus[sig])))
-
-        return bus
 
     peripheral_signals = ""
     psig_buses = create_bus(psig_list)
@@ -245,8 +261,12 @@ def main():
     # number of control apb registers
     regs_max = len(psig_list)//4-1 if (len(psig_list)%4 == 0) else len(psig_list)//4
 
-    with open('shared_pins_template.txt','r') as template:
+    with open('gen_shared_pins_template.txt','r') as template:
+        
         print('Generating source file...')
+        print('{} peripherial signals recognised, {} bus(es)'.format(len(psig_list),count_buses(psig_buses)))
+        print('{} internal signals recognised, {} bus(es)'.format(len(isig_list),count_buses(isig_buses)))
+
         result = template.read().format(
             date=date,
             author=author,

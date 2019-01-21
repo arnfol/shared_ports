@@ -86,7 +86,12 @@ def main():
     # ------------------------------------------------------------------------------------
     # generate output file 
     # ------------------------------------------------------------------------------------
-    print('Generating source file...')
+    print('Generating source file...')        
+    psig_buses = gen_shared_pins.create_bus(psig_list)
+    isig_buses = gen_shared_pins.create_bus(isig_list)
+    print('{} peripherial signals recognised, {} bus(es)'.format(len(psig_list),gen_shared_pins.count_buses(psig_buses)))
+    print('{} internal signals recognised, {} bus(es)'.format(len(isig_list),gen_shared_pins.count_buses(isig_buses)))
+
     
     result = header_template.format(
         date=gen_shared_pins.date,
