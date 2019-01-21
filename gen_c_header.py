@@ -10,7 +10,7 @@ out_file = gen_shared_pins.module_name + ".h"
 # ------------------------------------------------------------------------------------
 # templates
 # ------------------------------------------------------------------------------------
-enum_str = "enum {{ {isigs} }} {psig}_opt;"
+define_str = "#define {define:30} = {number};"
 struct_str = "unsigned char {psig};"
 header_template = """
 /*
@@ -20,7 +20,7 @@ header_template = """
     Author: {author}
 
     Usage:
-    MUX->{example_psig} = {example_psig}_opt.{example_isig};
+    MUX->{example_psig} = {example_psig}_{example_isig};
 
 */
 
@@ -30,7 +30,7 @@ header_template = """
 // ----------------------------------------------------------------
 // Register types
 // ----------------------------------------------------------------
-{enums}
+{constants}
 
 // ----------------------------------------------------------------
 // Registers
@@ -51,7 +51,7 @@ def main():
     # ------------------------------------------------------------------------------------
     psig_list, isig_list = gen_shared_pins.read_table(gen_shared_pins.inp_file, gen_shared_pins.head_lines)
 
-    enums = ""
+    constants = ""
     registers = ""
 
     for p in psig_list:
@@ -77,7 +77,10 @@ def main():
         if p is psig_list[0]:
             example_isig = isigs[0]
 
-        enums += '\n' + enum_str.format(psig=psig, isigs=', '.join(isigs))
+        # generate strings
+        for isig in isigs:
+            constants += define_str.format(define='_'.join([psig,isig]).upper(), number=isigs.index(isig)) + '\n'
+        constants += '\n'
         registers += '\n' + '\t' + struct_str.format(psig=psig)
 
 
@@ -96,10 +99,10 @@ def main():
     result = header_template.format(
         date=gen_shared_pins.date,
         author=gen_shared_pins.author,
-        example_psig=example_psig,
-        example_isig=example_isig,
+        example_psig=example_psig.upper(),
+        example_isig=example_isig.upper(),
         addr=shared_pins_apb_addr,
-        enums=enums,
+        constants=constants,
         registers=registers
         )
 

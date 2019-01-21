@@ -2,11 +2,11 @@
 /*
     This is an automatically generated file.
 
-    Date: 2019-01-21 21:20
+    Date: 2019-01-21 21:44
     Author: arnfo
 
     Usage:
-    MUX->cmn_port1_0 = cmn_port1_0_opt.gpio_14;
+    MUX->CMN_PORT1_0 = CMN_PORT1_0_GPIO_14;
 
 */
 
@@ -16,43 +16,171 @@
 // ----------------------------------------------------------------
 // Register types
 // ----------------------------------------------------------------
+#define CMN_PORT1_0_GPIO_14            = 0;
+#define CMN_PORT1_0_CAN1_TX            = 1;
+#define CMN_PORT1_0_I2C1_SCL           = 2;
+#define CMN_PORT1_0_UART1_RX           = 3;
 
-enum { gpio_14, can1_tx, i2c1_scl, uart1_rx } cmn_port1_0_opt;
-enum { gpio_15, can1_rx, i2c1_sda, uart1_tx } cmn_port1_1_opt;
-enum { gpio_12, can1_tx, i2c2_scl, uart2_rx } cmn_port1_2_opt;
-enum { gpio_13, can1_rx, i2c2_sda, uart2_tx } cmn_port1_3_opt;
-enum { gpio_8, can2_tx, i2c2_scl, uart1_rx } cmn_port1_4_opt;
-enum { gpio_9, can2_rx, i2c2_sda, uart1_tx } cmn_port1_5_opt;
-enum { gpio_10, can2_tx, i2c1_scl, uart2_rx } cmn_port1_6_opt;
-enum { gpio_11, can2_rx, i2c1_sda, uart2_tx } cmn_port1_7_opt;
-enum { gpio_16, i2c2_scl, uart2_rx, spi2_sel } cmn_port_12_opt;
-enum { gpio_17, i2c2_sda, uart2_tx, spi2_miso } cmn_port_13_opt;
-enum { gpio_18, i2c1_scl, jtagmst_tdi, spi2_mosi } cmn_port_14_opt;
-enum { gpio_19, i2c1_sda, jtagmst_tdo, spi2_sck } cmn_port_15_opt;
-enum { gpio_20, spi2_sel, jtagmst_tck, spi1_sel } cmn_port_16_opt;
-enum { gpio_21, spi2_miso, jtagmst_tms, spi1_miso } cmn_port_17_opt;
-enum { gpio_22, spi2_mosi, uart1_rx, spi1_mosi } cmn_port_18_opt;
-enum { gpio_23, spi2_sck, uart1_tx, spi1_sck } cmn_port_19_opt;
-enum { gpio_24, uart1_rx, spi2_sel, gpio_4 } cmn_port_20_opt;
-enum { gpio_25, uart1_tx, spi2_miso, gpio_5 } cmn_port_21_opt;
-enum { gpio_26, can1_tx, spi2_mosi, gpio_6 } cmn_port_22_opt;
-enum { gpio_27, can1_rx, spi2_sck, gpio_7 } cmn_port_23_opt;
-enum { gpio_28, uart2_rx, spi1_sel, gpio_8 } cmn_port_24_opt;
-enum { gpio_29, uart2_tx, spi1_miso, gpio_9 } cmn_port_25_opt;
-enum { gpio_30, can2_tx, spi1_mosi, gpio_10 } cmn_port_26_opt;
-enum { gpio_31, can2_rx, spi1_sck, gpio_11 } cmn_port_27_opt;
-enum { gpio_32, i2c1_scl, jtagmst_tdi, gpio_16 } cmn_port_28_opt;
-enum { gpio_33, i2c1_sda, jtagmst_tdo, gpio_17 } cmn_port_29_opt;
-enum { gpio_34, jtagmst_tck, gpio_18 } cmn_port_30_opt;
-enum { gpio_35, jtagmst_tms, gpio_19 } cmn_port_31_opt;
-enum { gpio_36, jtagmst_tdi } cmn_port_32_opt;
-enum { gpio_37, jtagmst_tdo } cmn_port_33_opt;
-enum { gpio_38, i2c2_scl, jtagmst_tck } cmn_port_34_opt;
-enum { gpio_39, i2c2_sda, jtagmst_tms } cmn_port_35_opt;
-enum { gpio_40, i2c1_scl } extended_addr_1_opt;
-enum { gpio_41, i2c1_sda } ext_cen_2_opt;
-enum { gpio_42, i2c2_scl } sp_pin0_opt;
-enum { gpio_43, i2c2_sda } sp_pin1_opt;
+#define CMN_PORT1_1_GPIO_15            = 0;
+#define CMN_PORT1_1_CAN1_RX            = 1;
+#define CMN_PORT1_1_I2C1_SDA           = 2;
+#define CMN_PORT1_1_UART1_TX           = 3;
+
+#define CMN_PORT1_2_GPIO_12            = 0;
+#define CMN_PORT1_2_CAN1_TX            = 1;
+#define CMN_PORT1_2_I2C2_SCL           = 2;
+#define CMN_PORT1_2_UART2_RX           = 3;
+
+#define CMN_PORT1_3_GPIO_13            = 0;
+#define CMN_PORT1_3_CAN1_RX            = 1;
+#define CMN_PORT1_3_I2C2_SDA           = 2;
+#define CMN_PORT1_3_UART2_TX           = 3;
+
+#define CMN_PORT1_4_GPIO_8             = 0;
+#define CMN_PORT1_4_CAN2_TX            = 1;
+#define CMN_PORT1_4_I2C2_SCL           = 2;
+#define CMN_PORT1_4_UART1_RX           = 3;
+
+#define CMN_PORT1_5_GPIO_9             = 0;
+#define CMN_PORT1_5_CAN2_RX            = 1;
+#define CMN_PORT1_5_I2C2_SDA           = 2;
+#define CMN_PORT1_5_UART1_TX           = 3;
+
+#define CMN_PORT1_6_GPIO_10            = 0;
+#define CMN_PORT1_6_CAN2_TX            = 1;
+#define CMN_PORT1_6_I2C1_SCL           = 2;
+#define CMN_PORT1_6_UART2_RX           = 3;
+
+#define CMN_PORT1_7_GPIO_11            = 0;
+#define CMN_PORT1_7_CAN2_RX            = 1;
+#define CMN_PORT1_7_I2C1_SDA           = 2;
+#define CMN_PORT1_7_UART2_TX           = 3;
+
+#define CMN_PORT_12_GPIO_16            = 0;
+#define CMN_PORT_12_I2C2_SCL           = 1;
+#define CMN_PORT_12_UART2_RX           = 2;
+#define CMN_PORT_12_SPI2_SEL           = 3;
+
+#define CMN_PORT_13_GPIO_17            = 0;
+#define CMN_PORT_13_I2C2_SDA           = 1;
+#define CMN_PORT_13_UART2_TX           = 2;
+#define CMN_PORT_13_SPI2_MISO          = 3;
+
+#define CMN_PORT_14_GPIO_18            = 0;
+#define CMN_PORT_14_I2C1_SCL           = 1;
+#define CMN_PORT_14_JTAGMST_TDI        = 2;
+#define CMN_PORT_14_SPI2_MOSI          = 3;
+
+#define CMN_PORT_15_GPIO_19            = 0;
+#define CMN_PORT_15_I2C1_SDA           = 1;
+#define CMN_PORT_15_JTAGMST_TDO        = 2;
+#define CMN_PORT_15_SPI2_SCK           = 3;
+
+#define CMN_PORT_16_GPIO_20            = 0;
+#define CMN_PORT_16_SPI2_SEL           = 1;
+#define CMN_PORT_16_JTAGMST_TCK        = 2;
+#define CMN_PORT_16_SPI1_SEL           = 3;
+
+#define CMN_PORT_17_GPIO_21            = 0;
+#define CMN_PORT_17_SPI2_MISO          = 1;
+#define CMN_PORT_17_JTAGMST_TMS        = 2;
+#define CMN_PORT_17_SPI1_MISO          = 3;
+
+#define CMN_PORT_18_GPIO_22            = 0;
+#define CMN_PORT_18_SPI2_MOSI          = 1;
+#define CMN_PORT_18_UART1_RX           = 2;
+#define CMN_PORT_18_SPI1_MOSI          = 3;
+
+#define CMN_PORT_19_GPIO_23            = 0;
+#define CMN_PORT_19_SPI2_SCK           = 1;
+#define CMN_PORT_19_UART1_TX           = 2;
+#define CMN_PORT_19_SPI1_SCK           = 3;
+
+#define CMN_PORT_20_GPIO_24            = 0;
+#define CMN_PORT_20_UART1_RX           = 1;
+#define CMN_PORT_20_SPI2_SEL           = 2;
+#define CMN_PORT_20_GPIO_4             = 3;
+
+#define CMN_PORT_21_GPIO_25            = 0;
+#define CMN_PORT_21_UART1_TX           = 1;
+#define CMN_PORT_21_SPI2_MISO          = 2;
+#define CMN_PORT_21_GPIO_5             = 3;
+
+#define CMN_PORT_22_GPIO_26            = 0;
+#define CMN_PORT_22_CAN1_TX            = 1;
+#define CMN_PORT_22_SPI2_MOSI          = 2;
+#define CMN_PORT_22_GPIO_6             = 3;
+
+#define CMN_PORT_23_GPIO_27            = 0;
+#define CMN_PORT_23_CAN1_RX            = 1;
+#define CMN_PORT_23_SPI2_SCK           = 2;
+#define CMN_PORT_23_GPIO_7             = 3;
+
+#define CMN_PORT_24_GPIO_28            = 0;
+#define CMN_PORT_24_UART2_RX           = 1;
+#define CMN_PORT_24_SPI1_SEL           = 2;
+#define CMN_PORT_24_GPIO_8             = 3;
+
+#define CMN_PORT_25_GPIO_29            = 0;
+#define CMN_PORT_25_UART2_TX           = 1;
+#define CMN_PORT_25_SPI1_MISO          = 2;
+#define CMN_PORT_25_GPIO_9             = 3;
+
+#define CMN_PORT_26_GPIO_30            = 0;
+#define CMN_PORT_26_CAN2_TX            = 1;
+#define CMN_PORT_26_SPI1_MOSI          = 2;
+#define CMN_PORT_26_GPIO_10            = 3;
+
+#define CMN_PORT_27_GPIO_31            = 0;
+#define CMN_PORT_27_CAN2_RX            = 1;
+#define CMN_PORT_27_SPI1_SCK           = 2;
+#define CMN_PORT_27_GPIO_11            = 3;
+
+#define CMN_PORT_28_GPIO_32            = 0;
+#define CMN_PORT_28_I2C1_SCL           = 1;
+#define CMN_PORT_28_JTAGMST_TDI        = 2;
+#define CMN_PORT_28_GPIO_16            = 3;
+
+#define CMN_PORT_29_GPIO_33            = 0;
+#define CMN_PORT_29_I2C1_SDA           = 1;
+#define CMN_PORT_29_JTAGMST_TDO        = 2;
+#define CMN_PORT_29_GPIO_17            = 3;
+
+#define CMN_PORT_30_GPIO_34            = 0;
+#define CMN_PORT_30_JTAGMST_TCK        = 1;
+#define CMN_PORT_30_GPIO_18            = 2;
+
+#define CMN_PORT_31_GPIO_35            = 0;
+#define CMN_PORT_31_JTAGMST_TMS        = 1;
+#define CMN_PORT_31_GPIO_19            = 2;
+
+#define CMN_PORT_32_GPIO_36            = 0;
+#define CMN_PORT_32_JTAGMST_TDI        = 1;
+
+#define CMN_PORT_33_GPIO_37            = 0;
+#define CMN_PORT_33_JTAGMST_TDO        = 1;
+
+#define CMN_PORT_34_GPIO_38            = 0;
+#define CMN_PORT_34_I2C2_SCL           = 1;
+#define CMN_PORT_34_JTAGMST_TCK        = 2;
+
+#define CMN_PORT_35_GPIO_39            = 0;
+#define CMN_PORT_35_I2C2_SDA           = 1;
+#define CMN_PORT_35_JTAGMST_TMS        = 2;
+
+#define EXTENDED_ADDR_1_GPIO_40        = 0;
+#define EXTENDED_ADDR_1_I2C1_SCL       = 1;
+
+#define EXT_CEN_2_GPIO_41              = 0;
+#define EXT_CEN_2_I2C1_SDA             = 1;
+
+#define SP_PIN0_GPIO_42                = 0;
+#define SP_PIN0_I2C2_SCL               = 1;
+
+#define SP_PIN1_GPIO_43                = 0;
+#define SP_PIN1_I2C2_SDA               = 1;
+
+
 
 // ----------------------------------------------------------------
 // Registers
