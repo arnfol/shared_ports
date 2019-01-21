@@ -40,6 +40,8 @@ The default input value is the value, which the module sets on the external conn
 
 ## Module behaviour
 
+![Module scheme](shared_pins_scheme.png)
+
 ### AMBA APB interface
 
 Control of the pins commutation is provided through the simple APB interface. Address of the register corresponding to a particular port depends on the port string number in the configuration table. Each register stores 4 fields with corresponding ports controls. For example, the register with address 0x00000000 consists of control fields for 4 upper signals in the table (least significant byte corresponds to the first signal).
@@ -94,6 +96,8 @@ For each external port module provides 3 signals: *port_name*\_o, *port_name*\_o
 *port_name*_i = port;
 if(*port_name*_oe) port = *port_name*_o;
 ```
+
+![peripherial cell](shared_pins_peripherial_cell.png)
 
 ### Internal connections
 
