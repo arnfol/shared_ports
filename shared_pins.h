@@ -2,7 +2,7 @@
 /*
     This is an automatically generated file.
 
-    Date: 2019-01-21 21:44
+    Date: 2019-01-22 22:17
     Author: arnfo
 
     Usage:
@@ -147,18 +147,18 @@
 #define CMN_PORT_29_GPIO_17            = 3;
 
 #define CMN_PORT_30_GPIO_34            = 0;
-#define CMN_PORT_30_JTAGMST_TCK        = 1;
-#define CMN_PORT_30_GPIO_18            = 2;
+#define CMN_PORT_30_JTAGMST_TCK        = 2;
+#define CMN_PORT_30_GPIO_18            = 3;
 
 #define CMN_PORT_31_GPIO_35            = 0;
-#define CMN_PORT_31_JTAGMST_TMS        = 1;
-#define CMN_PORT_31_GPIO_19            = 2;
+#define CMN_PORT_31_JTAGMST_TMS        = 2;
+#define CMN_PORT_31_GPIO_19            = 3;
 
 #define CMN_PORT_32_GPIO_36            = 0;
-#define CMN_PORT_32_JTAGMST_TDI        = 1;
+#define CMN_PORT_32_JTAGMST_TDI        = 2;
 
 #define CMN_PORT_33_GPIO_37            = 0;
-#define CMN_PORT_33_JTAGMST_TDO        = 1;
+#define CMN_PORT_33_JTAGMST_TDO        = 2;
 
 #define CMN_PORT_34_GPIO_38            = 0;
 #define CMN_PORT_34_I2C2_SCL           = 1;

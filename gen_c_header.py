@@ -73,13 +73,17 @@ def main():
                     isigs.append(i['name'])
                 else:
                     isigs.append(i['name'] + '_' + i['bit'])
+            else:
+                isigs.append(None)
 
         if p is psig_list[0]:
             example_isig = isigs[0]
 
         # generate strings
         for isig in isigs:
-            constants += define_str.format(define='_'.join([psig,isig]).upper(), number=isigs.index(isig)) + '\n'
+            if isig is not None:
+                constants += define_str.format(define='_'.join([psig,isig]).upper(), number=isigs.index(isig)) + '\n'
+
         constants += '\n'
         registers += '\n' + '\t' + struct_str.format(psig=psig)
 
