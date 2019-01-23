@@ -10,7 +10,7 @@ out_file = gen_shared_pins.module_name + ".h"
 # ------------------------------------------------------------------------------------
 # templates
 # ------------------------------------------------------------------------------------
-define_str = "#define {define:30} = {number};"
+define_str = "#define {define:30} {number}"
 struct_str = "unsigned char {psig};"
 header_template = """
 /*
@@ -36,7 +36,7 @@ header_template = """
 // Registers
 // ----------------------------------------------------------------
 
-typedef struct mux_type {{
+typedef struct {{
 {registers}
 }} mux_type;
 
