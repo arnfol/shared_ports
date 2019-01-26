@@ -66,6 +66,13 @@ module {module_name} (
 	--  MUX CONTROL
 	------------------------------------------------------------------------------*/
 
+	generate for (i = 0; i <= {psignal_max}; i++) begin : gen_matr_ie
+		always_comb begin
+			matr_ie[i] = '0;
+			matr_ie[i][port_mode[i]] = 1;
+		end
+	end endgenerate
+
 {mux_control}
 
 	/*------------------------------------------------------------------------------

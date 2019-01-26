@@ -44,12 +44,8 @@ peripheral_port_templ = '''\
 '''
 
 mux_control_templ = '''
-	assign {o} = matr_o[{num}][port_mode[{num}]]; 
-	assign {oe} = matr_oe[{num}][port_mode[{num}]]; 
-	always_comb begin 
-		matr_ie[{num}] = '0;
-		matr_ie[{num}][port_mode[{num}]] = 1;
-	end
+	assign {o}  = matr_o[{num}][~port_mode[{num}]]; 
+	assign {oe} = matr_oe[{num}][~port_mode[{num}]]; 
 '''
 
 connect_default_templ = '''\

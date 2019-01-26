@@ -1,7 +1,7 @@
 /*
 	This is an automatically generated file.
 
-	Date: 2019-01-22 22:27
+	Date: 2019-01-26 14:49
 	Author: arnfo
 
 */
@@ -131,258 +131,121 @@ module shared_pins (
 	--  MUX CONTROL
 	------------------------------------------------------------------------------*/
 
+	generate for (i = 0; i <= 35; i++) begin : gen_matr_ie
+		always_comb begin
+			matr_ie[i] = '0;
+			matr_ie[i][port_mode[i]] = 1;
+		end
+	end endgenerate
 
-	assign cmn_port1_o[0] = matr_o[0][port_mode[0]]; 
-	assign cmn_port1_oe[0] = matr_oe[0][port_mode[0]]; 
-	always_comb begin 
-		matr_ie[0] = '0;
-		matr_ie[0][port_mode[0]] = 1;
-	end
 
-	assign cmn_port1_o[1] = matr_o[1][port_mode[1]]; 
-	assign cmn_port1_oe[1] = matr_oe[1][port_mode[1]]; 
-	always_comb begin 
-		matr_ie[1] = '0;
-		matr_ie[1][port_mode[1]] = 1;
-	end
+	assign cmn_port1_o[0]  = matr_o[0][~port_mode[0]]; 
+	assign cmn_port1_oe[0] = matr_oe[0][~port_mode[0]]; 
 
-	assign cmn_port1_o[2] = matr_o[2][port_mode[2]]; 
-	assign cmn_port1_oe[2] = matr_oe[2][port_mode[2]]; 
-	always_comb begin 
-		matr_ie[2] = '0;
-		matr_ie[2][port_mode[2]] = 1;
-	end
+	assign cmn_port1_o[1]  = matr_o[1][~port_mode[1]]; 
+	assign cmn_port1_oe[1] = matr_oe[1][~port_mode[1]]; 
 
-	assign cmn_port1_o[3] = matr_o[3][port_mode[3]]; 
-	assign cmn_port1_oe[3] = matr_oe[3][port_mode[3]]; 
-	always_comb begin 
-		matr_ie[3] = '0;
-		matr_ie[3][port_mode[3]] = 1;
-	end
+	assign cmn_port1_o[2]  = matr_o[2][~port_mode[2]]; 
+	assign cmn_port1_oe[2] = matr_oe[2][~port_mode[2]]; 
 
-	assign cmn_port1_o[4] = matr_o[4][port_mode[4]]; 
-	assign cmn_port1_oe[4] = matr_oe[4][port_mode[4]]; 
-	always_comb begin 
-		matr_ie[4] = '0;
-		matr_ie[4][port_mode[4]] = 1;
-	end
+	assign cmn_port1_o[3]  = matr_o[3][~port_mode[3]]; 
+	assign cmn_port1_oe[3] = matr_oe[3][~port_mode[3]]; 
 
-	assign cmn_port1_o[5] = matr_o[5][port_mode[5]]; 
-	assign cmn_port1_oe[5] = matr_oe[5][port_mode[5]]; 
-	always_comb begin 
-		matr_ie[5] = '0;
-		matr_ie[5][port_mode[5]] = 1;
-	end
+	assign cmn_port1_o[4]  = matr_o[4][~port_mode[4]]; 
+	assign cmn_port1_oe[4] = matr_oe[4][~port_mode[4]]; 
 
-	assign cmn_port1_o[6] = matr_o[6][port_mode[6]]; 
-	assign cmn_port1_oe[6] = matr_oe[6][port_mode[6]]; 
-	always_comb begin 
-		matr_ie[6] = '0;
-		matr_ie[6][port_mode[6]] = 1;
-	end
+	assign cmn_port1_o[5]  = matr_o[5][~port_mode[5]]; 
+	assign cmn_port1_oe[5] = matr_oe[5][~port_mode[5]]; 
 
-	assign cmn_port1_o[7] = matr_o[7][port_mode[7]]; 
-	assign cmn_port1_oe[7] = matr_oe[7][port_mode[7]]; 
-	always_comb begin 
-		matr_ie[7] = '0;
-		matr_ie[7][port_mode[7]] = 1;
-	end
+	assign cmn_port1_o[6]  = matr_o[6][~port_mode[6]]; 
+	assign cmn_port1_oe[6] = matr_oe[6][~port_mode[6]]; 
 
-	assign cmn_port_o[12] = matr_o[8][port_mode[8]]; 
-	assign cmn_port_oe[12] = matr_oe[8][port_mode[8]]; 
-	always_comb begin 
-		matr_ie[8] = '0;
-		matr_ie[8][port_mode[8]] = 1;
-	end
+	assign cmn_port1_o[7]  = matr_o[7][~port_mode[7]]; 
+	assign cmn_port1_oe[7] = matr_oe[7][~port_mode[7]]; 
 
-	assign cmn_port_o[13] = matr_o[9][port_mode[9]]; 
-	assign cmn_port_oe[13] = matr_oe[9][port_mode[9]]; 
-	always_comb begin 
-		matr_ie[9] = '0;
-		matr_ie[9][port_mode[9]] = 1;
-	end
+	assign cmn_port_o[12]  = matr_o[8][~port_mode[8]]; 
+	assign cmn_port_oe[12] = matr_oe[8][~port_mode[8]]; 
 
-	assign cmn_port_o[14] = matr_o[10][port_mode[10]]; 
-	assign cmn_port_oe[14] = matr_oe[10][port_mode[10]]; 
-	always_comb begin 
-		matr_ie[10] = '0;
-		matr_ie[10][port_mode[10]] = 1;
-	end
+	assign cmn_port_o[13]  = matr_o[9][~port_mode[9]]; 
+	assign cmn_port_oe[13] = matr_oe[9][~port_mode[9]]; 
 
-	assign cmn_port_o[15] = matr_o[11][port_mode[11]]; 
-	assign cmn_port_oe[15] = matr_oe[11][port_mode[11]]; 
-	always_comb begin 
-		matr_ie[11] = '0;
-		matr_ie[11][port_mode[11]] = 1;
-	end
+	assign cmn_port_o[14]  = matr_o[10][~port_mode[10]]; 
+	assign cmn_port_oe[14] = matr_oe[10][~port_mode[10]]; 
 
-	assign cmn_port_o[16] = matr_o[12][port_mode[12]]; 
-	assign cmn_port_oe[16] = matr_oe[12][port_mode[12]]; 
-	always_comb begin 
-		matr_ie[12] = '0;
-		matr_ie[12][port_mode[12]] = 1;
-	end
+	assign cmn_port_o[15]  = matr_o[11][~port_mode[11]]; 
+	assign cmn_port_oe[15] = matr_oe[11][~port_mode[11]]; 
 
-	assign cmn_port_o[17] = matr_o[13][port_mode[13]]; 
-	assign cmn_port_oe[17] = matr_oe[13][port_mode[13]]; 
-	always_comb begin 
-		matr_ie[13] = '0;
-		matr_ie[13][port_mode[13]] = 1;
-	end
+	assign cmn_port_o[16]  = matr_o[12][~port_mode[12]]; 
+	assign cmn_port_oe[16] = matr_oe[12][~port_mode[12]]; 
 
-	assign cmn_port_o[18] = matr_o[14][port_mode[14]]; 
-	assign cmn_port_oe[18] = matr_oe[14][port_mode[14]]; 
-	always_comb begin 
-		matr_ie[14] = '0;
-		matr_ie[14][port_mode[14]] = 1;
-	end
+	assign cmn_port_o[17]  = matr_o[13][~port_mode[13]]; 
+	assign cmn_port_oe[17] = matr_oe[13][~port_mode[13]]; 
 
-	assign cmn_port_o[19] = matr_o[15][port_mode[15]]; 
-	assign cmn_port_oe[19] = matr_oe[15][port_mode[15]]; 
-	always_comb begin 
-		matr_ie[15] = '0;
-		matr_ie[15][port_mode[15]] = 1;
-	end
+	assign cmn_port_o[18]  = matr_o[14][~port_mode[14]]; 
+	assign cmn_port_oe[18] = matr_oe[14][~port_mode[14]]; 
 
-	assign cmn_port_o[20] = matr_o[16][port_mode[16]]; 
-	assign cmn_port_oe[20] = matr_oe[16][port_mode[16]]; 
-	always_comb begin 
-		matr_ie[16] = '0;
-		matr_ie[16][port_mode[16]] = 1;
-	end
+	assign cmn_port_o[19]  = matr_o[15][~port_mode[15]]; 
+	assign cmn_port_oe[19] = matr_oe[15][~port_mode[15]]; 
 
-	assign cmn_port_o[21] = matr_o[17][port_mode[17]]; 
-	assign cmn_port_oe[21] = matr_oe[17][port_mode[17]]; 
-	always_comb begin 
-		matr_ie[17] = '0;
-		matr_ie[17][port_mode[17]] = 1;
-	end
+	assign cmn_port_o[20]  = matr_o[16][~port_mode[16]]; 
+	assign cmn_port_oe[20] = matr_oe[16][~port_mode[16]]; 
 
-	assign cmn_port_o[22] = matr_o[18][port_mode[18]]; 
-	assign cmn_port_oe[22] = matr_oe[18][port_mode[18]]; 
-	always_comb begin 
-		matr_ie[18] = '0;
-		matr_ie[18][port_mode[18]] = 1;
-	end
+	assign cmn_port_o[21]  = matr_o[17][~port_mode[17]]; 
+	assign cmn_port_oe[21] = matr_oe[17][~port_mode[17]]; 
 
-	assign cmn_port_o[23] = matr_o[19][port_mode[19]]; 
-	assign cmn_port_oe[23] = matr_oe[19][port_mode[19]]; 
-	always_comb begin 
-		matr_ie[19] = '0;
-		matr_ie[19][port_mode[19]] = 1;
-	end
+	assign cmn_port_o[22]  = matr_o[18][~port_mode[18]]; 
+	assign cmn_port_oe[22] = matr_oe[18][~port_mode[18]]; 
 
-	assign cmn_port_o[24] = matr_o[20][port_mode[20]]; 
-	assign cmn_port_oe[24] = matr_oe[20][port_mode[20]]; 
-	always_comb begin 
-		matr_ie[20] = '0;
-		matr_ie[20][port_mode[20]] = 1;
-	end
+	assign cmn_port_o[23]  = matr_o[19][~port_mode[19]]; 
+	assign cmn_port_oe[23] = matr_oe[19][~port_mode[19]]; 
 
-	assign cmn_port_o[25] = matr_o[21][port_mode[21]]; 
-	assign cmn_port_oe[25] = matr_oe[21][port_mode[21]]; 
-	always_comb begin 
-		matr_ie[21] = '0;
-		matr_ie[21][port_mode[21]] = 1;
-	end
+	assign cmn_port_o[24]  = matr_o[20][~port_mode[20]]; 
+	assign cmn_port_oe[24] = matr_oe[20][~port_mode[20]]; 
 
-	assign cmn_port_o[26] = matr_o[22][port_mode[22]]; 
-	assign cmn_port_oe[26] = matr_oe[22][port_mode[22]]; 
-	always_comb begin 
-		matr_ie[22] = '0;
-		matr_ie[22][port_mode[22]] = 1;
-	end
+	assign cmn_port_o[25]  = matr_o[21][~port_mode[21]]; 
+	assign cmn_port_oe[25] = matr_oe[21][~port_mode[21]]; 
 
-	assign cmn_port_o[27] = matr_o[23][port_mode[23]]; 
-	assign cmn_port_oe[27] = matr_oe[23][port_mode[23]]; 
-	always_comb begin 
-		matr_ie[23] = '0;
-		matr_ie[23][port_mode[23]] = 1;
-	end
+	assign cmn_port_o[26]  = matr_o[22][~port_mode[22]]; 
+	assign cmn_port_oe[26] = matr_oe[22][~port_mode[22]]; 
 
-	assign cmn_port_o[28] = matr_o[24][port_mode[24]]; 
-	assign cmn_port_oe[28] = matr_oe[24][port_mode[24]]; 
-	always_comb begin 
-		matr_ie[24] = '0;
-		matr_ie[24][port_mode[24]] = 1;
-	end
+	assign cmn_port_o[27]  = matr_o[23][~port_mode[23]]; 
+	assign cmn_port_oe[27] = matr_oe[23][~port_mode[23]]; 
 
-	assign cmn_port_o[29] = matr_o[25][port_mode[25]]; 
-	assign cmn_port_oe[29] = matr_oe[25][port_mode[25]]; 
-	always_comb begin 
-		matr_ie[25] = '0;
-		matr_ie[25][port_mode[25]] = 1;
-	end
+	assign cmn_port_o[28]  = matr_o[24][~port_mode[24]]; 
+	assign cmn_port_oe[28] = matr_oe[24][~port_mode[24]]; 
 
-	assign cmn_port_o[30] = matr_o[26][port_mode[26]]; 
-	assign cmn_port_oe[30] = matr_oe[26][port_mode[26]]; 
-	always_comb begin 
-		matr_ie[26] = '0;
-		matr_ie[26][port_mode[26]] = 1;
-	end
+	assign cmn_port_o[29]  = matr_o[25][~port_mode[25]]; 
+	assign cmn_port_oe[29] = matr_oe[25][~port_mode[25]]; 
 
-	assign cmn_port_o[31] = matr_o[27][port_mode[27]]; 
-	assign cmn_port_oe[31] = matr_oe[27][port_mode[27]]; 
-	always_comb begin 
-		matr_ie[27] = '0;
-		matr_ie[27][port_mode[27]] = 1;
-	end
+	assign cmn_port_o[30]  = matr_o[26][~port_mode[26]]; 
+	assign cmn_port_oe[30] = matr_oe[26][~port_mode[26]]; 
 
-	assign cmn_port_o[32] = matr_o[28][port_mode[28]]; 
-	assign cmn_port_oe[32] = matr_oe[28][port_mode[28]]; 
-	always_comb begin 
-		matr_ie[28] = '0;
-		matr_ie[28][port_mode[28]] = 1;
-	end
+	assign cmn_port_o[31]  = matr_o[27][~port_mode[27]]; 
+	assign cmn_port_oe[31] = matr_oe[27][~port_mode[27]]; 
 
-	assign cmn_port_o[33] = matr_o[29][port_mode[29]]; 
-	assign cmn_port_oe[33] = matr_oe[29][port_mode[29]]; 
-	always_comb begin 
-		matr_ie[29] = '0;
-		matr_ie[29][port_mode[29]] = 1;
-	end
+	assign cmn_port_o[32]  = matr_o[28][~port_mode[28]]; 
+	assign cmn_port_oe[32] = matr_oe[28][~port_mode[28]]; 
 
-	assign cmn_port_o[34] = matr_o[30][port_mode[30]]; 
-	assign cmn_port_oe[34] = matr_oe[30][port_mode[30]]; 
-	always_comb begin 
-		matr_ie[30] = '0;
-		matr_ie[30][port_mode[30]] = 1;
-	end
+	assign cmn_port_o[33]  = matr_o[29][~port_mode[29]]; 
+	assign cmn_port_oe[33] = matr_oe[29][~port_mode[29]]; 
 
-	assign cmn_port_o[35] = matr_o[31][port_mode[31]]; 
-	assign cmn_port_oe[35] = matr_oe[31][port_mode[31]]; 
-	always_comb begin 
-		matr_ie[31] = '0;
-		matr_ie[31][port_mode[31]] = 1;
-	end
+	assign cmn_port_o[34]  = matr_o[30][~port_mode[30]]; 
+	assign cmn_port_oe[34] = matr_oe[30][~port_mode[30]]; 
 
-	assign extended_addr_o[1] = matr_o[32][port_mode[32]]; 
-	assign extended_addr_oe[1] = matr_oe[32][port_mode[32]]; 
-	always_comb begin 
-		matr_ie[32] = '0;
-		matr_ie[32][port_mode[32]] = 1;
-	end
+	assign cmn_port_o[35]  = matr_o[31][~port_mode[31]]; 
+	assign cmn_port_oe[35] = matr_oe[31][~port_mode[31]]; 
 
-	assign ext_cen_o[2] = matr_o[33][port_mode[33]]; 
-	assign ext_cen_oe[2] = matr_oe[33][port_mode[33]]; 
-	always_comb begin 
-		matr_ie[33] = '0;
-		matr_ie[33][port_mode[33]] = 1;
-	end
+	assign extended_addr_o[1]  = matr_o[32][~port_mode[32]]; 
+	assign extended_addr_oe[1] = matr_oe[32][~port_mode[32]]; 
 
-	assign sp_pin0_o = matr_o[34][port_mode[34]]; 
-	assign sp_pin0_oe = matr_oe[34][port_mode[34]]; 
-	always_comb begin 
-		matr_ie[34] = '0;
-		matr_ie[34][port_mode[34]] = 1;
-	end
+	assign ext_cen_o[2]  = matr_o[33][~port_mode[33]]; 
+	assign ext_cen_oe[2] = matr_oe[33][~port_mode[33]]; 
 
-	assign sp_pin1_o = matr_o[35][port_mode[35]]; 
-	assign sp_pin1_oe = matr_oe[35][port_mode[35]]; 
-	always_comb begin 
-		matr_ie[35] = '0;
-		matr_ie[35][port_mode[35]] = 1;
-	end
+	assign sp_pin0_o  = matr_o[34][~port_mode[34]]; 
+	assign sp_pin0_oe = matr_oe[34][~port_mode[34]]; 
+
+	assign sp_pin1_o  = matr_o[35][~port_mode[35]]; 
+	assign sp_pin1_oe = matr_oe[35][~port_mode[35]]; 
 
 
 	/*------------------------------------------------------------------------------
