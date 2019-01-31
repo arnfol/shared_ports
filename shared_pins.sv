@@ -1,7 +1,7 @@
 /*
 	This is an automatically generated file.
 
-	Date: 2019-01-26 14:49
+	Date: 2019-02-01 00:08
 	Author: arnfo
 
 */
@@ -90,8 +90,6 @@ module shared_pins (
 	);
 
 	logic [35:0][1:0] port_mode;
-	logic [8:0][3:0][7:0] apb_regs_read;
-	logic [8:0][3:0][7:0] apb_regs_write;
 
 	logic [35:0][3:0] matr_o ;
 	logic [35:0][3:0] matr_oe;
@@ -105,36 +103,30 @@ module shared_pins (
 		if(~rst_n) begin
 			prdata <= 0;
 		end else if(psel & ~penable) begin
-			prdata <= apb_regs_read[paddr[5:2]];
+			prdata <= port_mode[paddr[7:2]];
 		end
 	end
 
 	// apb write
 	genvar i;
-	generate for (i = 0; i <= 8; i++) begin : gen_apb_regs
+	generate for (i = 0; i <= 35; i++) begin : gen_apb_regs
 		always @(posedge clk or negedge rst_n) begin 
 			if(~rst_n) begin
-				apb_regs_write[i] <= 0;
-			end else if(psel & ~penable & pwrite & (paddr[5:2] == i)) begin
-				apb_regs_write[i] <= pwdata;
+				port_mode[i] <= 0;
+			end else if(psel & ~penable & pwrite & (paddr[7:2] == i)) begin
+				port_mode[i] <= pwdata;
 			end
 		end
 	end endgenerate
-
-	// connect port_mode to apb registers
-	generate for (i = 0; i <= 35; i++) begin : gen_port_mode
-		assign port_mode[i] = apb_regs_write[i/4][i%4];
-		assign apb_regs_read[i/4][i%4] = port_mode[i];
-	end	endgenerate
 
 	/*------------------------------------------------------------------------------
 	--  MUX CONTROL
 	------------------------------------------------------------------------------*/
 
 	generate for (i = 0; i <= 35; i++) begin : gen_matr_ie
-		always_comb begin
+		always_comb begin 
 			matr_ie[i] = '0;
-			matr_ie[i][port_mode[i]] = 1;
+			matr_ie[i][port_mode[i]] = 1;			
 		end
 	end endgenerate
 

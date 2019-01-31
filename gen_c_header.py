@@ -10,8 +10,8 @@ out_file = gen_shared_pins.module_name + ".h"
 # ------------------------------------------------------------------------------------
 # templates
 # ------------------------------------------------------------------------------------
-define_str = "#define {define:30} {number}"
-struct_str = "unsigned char {psig};"
+define_str = "#define {define:30} ((uint32_t){number})"
+struct_str = "uint32_t {psig};"
 header_template = """
 /*
     This is an automatically generated file.
